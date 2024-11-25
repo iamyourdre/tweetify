@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply text-white;
+}
+
 .btn:hover {
   @apply bg-neutral-900;
 }
