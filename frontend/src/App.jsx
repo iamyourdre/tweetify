@@ -7,6 +7,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Home />} />
+        <Route path="/notification" element={<Home />} />
+        <Route path="/message" element={<Home />} />
+        <Route path="/posting" element={<Home />} />
       </Routes>
     </Router>
   );
