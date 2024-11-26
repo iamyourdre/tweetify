@@ -23,7 +23,7 @@ const HomeContent = () => {
             {activeHomeTab==1 ? <TabFYP /> : 'else'}
           </div>
         </div>
-        <div className="lg:col-span-3 hidden py-4 ml-2 z-50 lg:flex flex-col gap-4 relative">
+        <div className="lg:col-span-3 hidden ml-2 z-50 lg:flex flex-col gap-4">
           <RightSide/>
         </div>
       </div>

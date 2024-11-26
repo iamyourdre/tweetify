@@ -2,7 +2,7 @@ import React from 'react'
 
 const Post = () => {
   return (
-    <div className="flex w-full flex-col gap-3 bg-gray-700 rounded-xl p-3 mb-3">
+    <div className="flex w-full flex-col gap-3 border-b border-gray-600 pb-6 mb-6">
       <div className="flex items-center gap-2">
         <div className="skeleton h-12 w-12 shrink-0 rounded-full"></div>
         <div className="flex flex-col gap-2">
