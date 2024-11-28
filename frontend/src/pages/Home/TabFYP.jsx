@@ -12,12 +12,6 @@ const TabFYP = () => {
       <Post />
       <Post />
       <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
     </div>
   )
 }

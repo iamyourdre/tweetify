@@ -11,27 +11,22 @@ const Sidebar = () => {
     { to: "/messages", icon: <HiChatBubbleOvalLeftEllipsis className="w-7 h-auto mx-auto" /> },
   ];  
   return (
-    <div className="fixed z-50 bg-base-100 flex-none py-3 px-2 lg:px-3 h-screen flex flex-col border-r border-gray-600">
-      <div className="flex-1 flex flex-col">
-        <NavLink to="/" className="mb-8">
-          <FaClover className='w-10 mt-0.5 h-auto mx-auto'/>
-        </NavLink>
+    <div className="fixed z-50 flex-none py-3 px-2 lg:px-3 h-full flex flex-col border-r border-gray-600 bg-base-100">
+      <NavLink to="/" className="mb-8">
+        <FaClover className='w-10 mt-0.5 h-auto mx-auto'/>
+      </NavLink>
 
-        <SideNavLink link={links[0]} />
-        <SideNavLink link={links[1]} />
-        <SideNavLink link={links[2]} />
-        <SideNavLink link={links[3]} />
-        
-        <NavLink to="/" className="block btn btn-accent text-white p-2.5 rounded-full border-0 mt-3 hover:bg-opacity-50 transition-all">
-          <HiMiniPencilSquare className='w-7 h-auto mx-auto'/>
-        </NavLink>
-        
-      </div>
-      <div className="flex-none">
-        <NavLink to="/">
-          <img className='w-11 h-auto mx-auto' src='https://avatar.iran.liara.run/public/34'/>
-        </NavLink>
-      </div>
+      <SideNavLink link={links[0]} />
+      <SideNavLink link={links[1]} />
+      <SideNavLink link={links[2]} />
+      <SideNavLink link={links[3]} />
+
+      <NavLink to="/" className="bg-accent text-white px-1.5 py-3 rounded-full border-0 mt-3 hover:bg-opacity-50 transition-all">
+        <HiMiniPencilSquare className='w-6 h-6 mx-auto'/>
+      </NavLink>
+      <NavLink to="/" className="mt-5">
+        <img className='w-6 mt-3 h-auto mx-auto' src='https://avatar.iran.liara.run/public/34'/>
+      </NavLink>
     </div>
   )
 }

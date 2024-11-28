@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const Preview = ({preview}) => {
   
   return (
-    <NavLink to="/" className='flex p-4 text-md hover:bg-base-300'>
+    <label htmlFor="chat-drawer" aria-label="close sidebar" className='flex p-4 text-md hover:bg-base-300'>
       <img className='w-10 h-10' src={preview.profilePic}/>
       <div className="leading-tight pl-3 w-full">
         <div className="flex flex-wrap">
@@ -13,7 +13,7 @@ const Preview = ({preview}) => {
         </div>
         <p className='text-sm opacity-50 line-clamp-1'>{preview.chat}</p>
       </div>
-    </NavLink>
+  </label>
   )
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import Preview from './Preview'
 import Box from './Box'
-import SearchMessageBar from './SearchMessageBar';
+import SearchBar from './SearchBar';
 
 const Messages = () => {
   
@@ -18,24 +18,29 @@ const Messages = () => {
   ]; 
   return (
     <>
-      <div className='grid lg:grid-cols-8 h-screen'>
-        <div className="lg:col-span-3 relative overflow-auto">
-          <div className='fixed w-full bg-base-100/80 backdrop-blur-md px-4 py-5'>
-            <p className='text-xl font-bold'>Messages</p>
-          </div>
-          <div className='pt-[4.3rem] h-screen flex flex-col'>
-            <div className="border-t border-gray-600">
-              <div className="p-4">
-                <SearchMessageBar />
+      <div className="drawer lg:drawer-open ">
+        <input id="chat-drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
+          {/* Page content here */}
+          <Box />
+        </div>
+        <div className="drawer-side border-r border-gray-700 pl-16 lg:p-0">
+          <label htmlFor="chat-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+          <div className="menu h-full lg:w-80 w-full bg-base-100 p-0 m-0">
+            <div className="h-full flex flex-col">
+              <div className='w-full bg-base-100 px-4 py-5 z-10 border-b border-gray-700'>
+                <p className='text-xl font-bold'>Messages</p>
               </div>
-              {messagePreview.map((preview, index) => (
-                <Preview key={index} preview={preview} />
-              ))}
+              <div className='h-screen flex flex-col overflow-auto'>
+                <div className="p-4">
+                  <SearchBar />
+                </div>
+                {messagePreview.map((preview, index) => (
+                  <Preview key={index} preview={preview} />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="lg:col-span-5 hidden z-50 lg:flex flex-col gap-4">
-          <Box />
         </div>
       </div>
     </>

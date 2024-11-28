@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { useEffect } from "react";
 import { HomeTabContext } from '../../contexts/HomeTabContext';
+import { NavLink } from 'react-router-dom';
+import { HiMiniPencilSquare } from 'react-icons/hi2';
 
 const TabBar = () => {
   const { activeHomeTab, setActiveHomeTab } = useContext(HomeTabContext);
@@ -10,7 +12,8 @@ const TabBar = () => {
 
   return (
     <div className='fixed w-full bg-base-100/80 backdrop-blur-md'>
-      <div className="join rounded-badge pt-2">
+      <div className="flex pt-2">
+        
         <button
           onClick={() => setActiveHomeTab(1)}
           className={`block py-3 px-3.5 ml-4 font-bold ${activeHomeTab == 1 ? "border-b-2 border-teal-500" : "border-b-2 border-transparent"}`}

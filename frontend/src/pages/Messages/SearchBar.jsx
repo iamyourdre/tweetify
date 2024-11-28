@@ -1,7 +1,7 @@
 import React from 'react'
 import { HiMagnifyingGlass } from 'react-icons/hi2'
 
-const SearchMessageBar = () => {
+const SearchBar = () => {
   return (
     <div className="rounded-3xl bg-gray-700 px-4 py-3">
       <div className="flex gap-3">
@@ -16,4 +16,4 @@ const SearchMessageBar = () => {
   )
 }
 
-export default SearchMessageBar
+export default SearchBar
