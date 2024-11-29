@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { HiMiniPaperAirplane, HiOutlineDocumentPlus, HiXMark } from 'react-icons/hi2';
+import { FaRegImage } from "react-icons/fa6";
 
 const Input = () => {
   const [message, setMessage] = useState('');
   const [file, setFile] = useState(null);
 
   const handleSend = () => {
-    // Handle send message logic here
     console.log('Message sent:', message);
     setMessage('');
   };
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-    console.log('File uploaded:', selectedFile);
+  const handleImageChange = (event) => {
+    const selectedImage = event.target.files[0];
+    if(selectedImage.type.startsWith('image/')){
+      setFile(selectedImage);
+    } else {
+      alert('Please upload an image file');
+    }
   };
 
   const handleRemoveFile = () => {
@@ -27,14 +30,10 @@ const Input = () => {
       {file && (
       <div className='bg-base-200 rounded p-2'>
         <div className="flex items-center gap-2">
-          {file.type.startsWith('image/') ? (
           <div className='flex line-clamp-1'>
             <img src={URL.createObjectURL(file)} alt="Preview" className="max-h-16 max-w-16 rounded mr-3" /> 
             <span className="my-auto">{file.name}</span>
           </div>
-        ) : (
-          <div className='flex'><HiOutlineDocumentPlus className='text-xl mr-2' /> {file.name}</div>
-          )}
           <HiXMark className="text-xl cursor-pointer" onClick={handleRemoveFile} />
         </div>
       </div>
@@ -42,9 +41,9 @@ const Input = () => {
       <div className="flex flex-row gap-2">
         <label className="form-control">
           <div className="label rounded-full bg-gray-700 px-3.5 py-3.5">
-            <HiOutlineDocumentPlus className='text-xl' />
+            <FaRegImage className='text-xl' />
           </div>
-          <input type="file" onChange={handleFileChange} hidden/>
+          <input type="file" onChange={handleImageChange} hidden/>
         </label>
         <div className="rounded-3xl bg-gray-700 px-4 py-3 flex-1">
           <div className="flex gap-3">
