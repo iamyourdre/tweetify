@@ -2,8 +2,10 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { FaClover } from "react-icons/fa6";
 import { HiBell, HiChatBubbleOvalLeftEllipsis, HiMagnifyingGlass, HiMiniPencilSquare, HiMiniSquares2X2 } from "react-icons/hi2";
+import {useAuthContext} from '../contexts/AuthContext';
 
 const Sidebar = () => {
+  const {user} = useAuthContext();
   const links = [
     { to: "/", icon: <HiMiniSquares2X2 className="w-7 h-auto mx-auto" /> },
     { to: "/search", icon: <HiMagnifyingGlass className="w-7 h-auto mx-auto" /> },
@@ -25,7 +27,7 @@ const Sidebar = () => {
         <HiMiniPencilSquare className='w-6 h-6 mx-auto'/>
       </NavLink>
       <NavLink to="/" className="mt-5">
-        <img className='w-6 mt-3 h-auto mx-auto' src='https://avatar.iran.liara.run/public/34'/>
+        <img className='w-6 mt-3 h-auto mx-auto' src={user.profilePic}/>
       </NavLink>
     </div>
   )

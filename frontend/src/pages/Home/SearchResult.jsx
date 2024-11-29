@@ -10,7 +10,7 @@ const SearchResult = ({data}) => {
           <p className='text-md font-bold'>{data.name}</p>
           {data.following ? (
             <div className='flex-1 text-sm opacity-50 text-right '>
-              <div class="badge badge-neutral">Following</div>
+              <div className="badge badge-neutral">Following</div>
             </div>
           ) : ''}
         </div>
