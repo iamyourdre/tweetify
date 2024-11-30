@@ -1,4 +1,3 @@
-import { get, set } from "mongoose";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxios from "./useAxios";
@@ -7,11 +6,11 @@ const useGetConversations = () => {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState([]);
   useEffect(() => {
-    const getConversation = async () => {
+    const getConversations = async () => {
       setLoading(true);
       try {
         
-        const res = await useAxios.get('/users');
+        const res = await useAxios.get('/conversations');
         if(res.data.error) {
           throw new Error(data.error);
         }
@@ -23,7 +22,7 @@ const useGetConversations = () => {
         setLoading(false);
       }
     };
-    getConversation();
+    getConversations();
   }, []);
 
   return { loading, conversations };

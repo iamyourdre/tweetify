@@ -1,9 +1,9 @@
 import express from 'express';
+import { getConversations } from '../controllers/conversation.controller.js';
 import protectRoute from '../middlewares/protectRoute.js';
-import { getUsersForPreview } from '../controllers/user.controller.js';
 
 const router = express.Router();
 
-router.get('/', protectRoute, getUsersForPreview);
+router.get('/', protectRoute, getConversations);
 
 export default router;

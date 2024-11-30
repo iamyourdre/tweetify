@@ -1,21 +1,11 @@
 import React from 'react'
-import Preview from './Preview'
+import Conversation from './Conversation'
 import Box from './Box'
 import SearchBar from './SearchBar';
+import useGetConversations from '../../hooks/useGetConversations';
 
 const Messages = () => {
-  
-  const messagePreview = [
-    { profilePic: "https://avatar.iran.liara.run/public/22", name: "John Doe", chat: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus provident totam quibusdam facilis autem saepe ex dolore non, itaque dignissimos illo?", time: "3:00 PM" },
-    { profilePic: "https://avatar.iran.liara.run/public/88", name: "Jane Doe", chat: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore aliquid autem molestiae eos numquam incidunt.", time: "2:00 PM" },
-    { profilePic: "https://avatar.iran.liara.run/public/10", name: "John Smith", chat: "Lorem, ipsum dolor.", time: "1:00 PM" },
-    { profilePic: "https://avatar.iran.liara.run/public/22", name: "John Doe", chat: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus provident totam quibusdam facilis autem saepe ex dolore non, itaque dignissimos illo?", time: "3:00 PM" },
-    { profilePic: "https://avatar.iran.liara.run/public/88", name: "Jane Doe", chat: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore aliquid autem molestiae eos numquam incidunt.", time: "2:00 PM" },
-    { profilePic: "https://avatar.iran.liara.run/public/10", name: "John Smith", chat: "Lorem, ipsum dolor.", time: "1:00 PM" },
-    { profilePic: "https://avatar.iran.liara.run/public/22", name: "John Doe", chat: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus provident totam quibusdam facilis autem saepe ex dolore non, itaque dignissimos illo?", time: "3:00 PM" },
-    { profilePic: "https://avatar.iran.liara.run/public/88", name: "Jane Doe", chat: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore aliquid autem molestiae eos numquam incidunt.", time: "2:00 PM" },
-    { profilePic: "https://avatar.iran.liara.run/public/10", name: "John Smith", chat: "Lorem, ipsum dolor.", time: "1:00 PM" },
-  ]; 
+  const {loading, conversations} = useGetConversations();
   return (
     <>
       <div className="drawer lg:drawer-open ">
@@ -35,8 +25,8 @@ const Messages = () => {
                 <div className="p-4">
                   <SearchBar />
                 </div>
-                {messagePreview.map((preview, index) => (
-                  <Preview key={index} preview={preview} />
+                {conversations.map((conversation, index) => (
+                  <Conversation key={index} conversation={conversation} />
                 ))}
               </div>
             </div>

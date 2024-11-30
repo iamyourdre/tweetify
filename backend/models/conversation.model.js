@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const roomSchema = new mongoose.Schema({
+const conversationSchema = new mongoose.Schema({
   participants: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,6 +16,6 @@ const roomSchema = new mongoose.Schema({
   ],
 }, {timestamps: true});
 
-const Room = mongoose.model("Room", roomSchema);
+const Conversation = mongoose.model("Conversation", conversationSchema);
 
-export default Room;
+export default Conversation;

@@ -26,12 +26,12 @@ const Input = () => {
 
   return (
     <div className="border-t border-gray-700 p-2 flex flex-col gap-4">
-      {/* file preview */}
+      {/* file conversation */}
       {file && (
       <div className='bg-base-200 rounded p-2'>
         <div className="flex items-center gap-2">
           <div className='flex line-clamp-1'>
-            <img src={URL.createObjectURL(file)} alt="Preview" className="max-h-16 max-w-16 rounded mr-3" /> 
+            <img src={URL.createObjectURL(file)} alt="Conversation" className="max-h-16 max-w-16 rounded mr-3" /> 
             <span className="my-auto">{file.name}</span>
           </div>
           <HiXMark className="text-xl cursor-pointer" onClick={handleRemoveFile} />
