@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Message = ({message}) => {
+const Bubble = ({message}) => {
   return (
     <div className='flex flex-col gap-2'>
       {message.isMe ? (
@@ -56,4 +56,4 @@ const Message = ({message}) => {
   )
 }
 
-export default Message
+export default Bubble

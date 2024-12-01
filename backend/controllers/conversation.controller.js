@@ -14,7 +14,7 @@ export const getConversations = async (req, res) => {
     })
     .populate({
       path: 'participants',
-      select: 'fullName profilePic' // Include only name and profilePic fields
+      select: 'fullName profilePic username' // Include only name and profilePic fields
     });
 
     res.status(200).json(conversations);
