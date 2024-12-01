@@ -20,7 +20,7 @@ const Conversation = ({conversation}) => {
     <label htmlFor="chat-drawer" aria-label="close sidebar"className={
       `flex p-4 text-md hover:bg-base-300 ${isSelected ? 'bg-base-200' : ''}`
       }
-      onClick={() => setSelectedConversation({_id: conversation._id, receiver:participant})}
+      onClick={() => setSelectedConversation({_id: conversation._id, receiver:participant, profilePic: profilePic})}
     >
       <div className={`avatar ${isOnline ? 'online' : ''}`}>
         <div className="w-10 h-10 rounded-full">

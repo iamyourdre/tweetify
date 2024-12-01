@@ -17,13 +17,6 @@ const Box = () => {
     }
   }, [setSelectedConversation]);
 
-
-  const messages = [
-    {isMe: true, text: "Test!", time: "00:46", seen: true},
-    {isMe: false, profilePic: "https://avatar.iran.liara.run/public/22", name: "John Doe", text: "Nice!", time: "01:00"},
-    {isMe: false, profilePic: "https://avatar.iran.liara.run/public/22", image: 'https://images.unsplash.com/photo-1732130318659-03b9445dc29b', name: "John Doe", text: "Look!", time: "01:01"},
-    {isMe: true, text: "Good!", image:"https://images.unsplash.com/photo-1732130318734-fa3f78202a6f?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", time: "00:46", seen: true},
-  ]
   return (
     <>
       <div className='h-screen flex flex-col border-r border-gray-700'>

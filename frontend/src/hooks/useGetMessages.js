@@ -1,4 +1,3 @@
-import { get, set } from "mongoose";
 import useConversation from "../zustand/useConversation";
 import useAxios from "./useAxios"
 import { useEffect, useState } from "react";
@@ -11,7 +10,7 @@ const useGetMessages = () => {
       const getMessages = async () => {
         setLoading(true);
         try {
-          const res = await useAxios.get(`/messages/${selectedConversation._id}`)
+          const res = await useAxios.get(`/messages/${selectedConversation.receiver._id}`);
           if(res.data.error) {
             throw new Error(data.error);
           }
