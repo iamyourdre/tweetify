@@ -5,15 +5,18 @@ import toast from 'react-hot-toast';
 
 const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
-  const {messages, setMessages, selectedConversation} = useConversation();
+  const { messages, setMessages, selectedConversation } = useConversation();
 
-  const sendMessage = async (message) => {
+  const sendMessage = async (formData) => {
     setLoading(true);
     try {
-      
-      const res = await useAxios.post(`/messages/send/${selectedConversation._id}`, { message });
-      if(res.data.error) {
-        throw new Error(data.error);
+      const res = await useAxios.post(`/messages/send/${selectedConversation?.receiver._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      if (res.data.error) {
+        throw new Error(res.data.error);
       }
 
       setMessages([...messages, res.data]);
@@ -22,8 +25,9 @@ const useSendMessage = () => {
     } finally {
       setLoading(false);
     }
-  }
-  return { loading, sendMessage };
-}
+  };
 
-export default useSendMessage
+  return { loading, sendMessage };
+};
+
+export default useSendMessage;

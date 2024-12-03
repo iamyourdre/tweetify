@@ -8,9 +8,10 @@ const Bubble = ({message}) => {
   const {selectedConversation} = useConversation();
   const isMe = message.senderId === user._id;
   const formattedTime = extractTime(message.createdAt);
+  console.log(message)
   return (
     <div className='flex flex-col gap-2'>
-      {message.isMe ? (
+      {isMe ? (
         <div className="chat chat-end">
           {message.image ? (
             <>
@@ -26,7 +27,7 @@ const Bubble = ({message}) => {
             <>
               <div className="chat-bubble bg-teal-500 text-white">
                 {message.message ? <p>{message.message}</p> : ''}
-                <time className="text-xs opacity-50 ">{formattedTime} • {message.seen?"Seen":"Delivered"}</time>
+                <time className="text-xs opacity-50 ">{formattedTime}</time>
               </div>
             </>
           )}

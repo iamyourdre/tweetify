@@ -12,6 +12,12 @@ const Box = () => {
   const isOnline = (onlineUsers ?? []).includes(selectedConversation?.receiver._id);
 
   useEffect(() => {
+    const chatDrawer = document.getElementById('chat-drawer');
+    if (chatDrawer) {
+      if (!chatDrawer.checked) {
+        chatDrawer.checked = true;
+      }
+    }
     return () => {
       setSelectedConversation(null);
     }
@@ -22,7 +28,10 @@ const Box = () => {
       <div className='h-screen flex flex-col border-r border-gray-700'>
         {!selectedConversation ? (
             <div className='flex justify-center items-center h-screen'>
-              <div className='text-2xl'>Select a chat to start messaging</div>
+              <label htmlFor="chat-drawer" className='flex justify-items-center items-center pr-4 gap-2'>
+                <HiChevronLeft className='text-2xl'/>
+                <div className='text-xl lg:text-2xl'>Select a chat to start messaging</div>
+              </label>
             </div>
           ) :
           (
