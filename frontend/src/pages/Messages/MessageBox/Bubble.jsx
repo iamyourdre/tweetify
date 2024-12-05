@@ -1,7 +1,7 @@
 import React from 'react'
-import { useAuthContext } from '../../contexts/AuthContext';
-import useConversation from '../../zustand/useConversation';
-import { extractTime } from '../../utils/extractTime';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import useConversation from '../../../zustand/useConversation';
+import { extractTime } from '../../../utils/extractTime';
 
 const Bubble = ({message}) => {
   const {user} = useAuthContext();

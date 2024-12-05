@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Bubble from './Bubble'
-import useGetMessages from '../../hooks/useGetMessages';
-import useListenMessages from '../../hooks/useListenMessages';
+import useGetMessages from '../../../hooks/useGetMessages';
+import useListenMessages from '../../../hooks/useListenMessages';
 
 const Bubbles = () => {
   const {messages, loading} = useGetMessages();

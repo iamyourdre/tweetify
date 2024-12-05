@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { HiMiniPaperAirplane, HiOutlineDocumentPlus, HiXMark } from 'react-icons/hi2';
+import { HiMiniPaperAirplane, HiXMark } from 'react-icons/hi2';
 import { FaRegImage } from "react-icons/fa6";
-import useSendMessage from '../../hooks/useSendMessage';
+import useSendMessage from '../../../hooks/useSendMessage';
 
 const Input = () => {
   const [message, setMessage] = useState('');

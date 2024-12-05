@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import Bubble from './Bubble'
 import { HiChevronLeft } from "react-icons/hi2";
 import Input from './Input';
-import useConversations from '../../zustand/useConversation';
+import useConversations from '../../../zustand/useConversation';
 import Bubbles from './Bubbles';
-import { useSocketContext } from '../../contexts/SocketContext';
+import { useSocketContext } from '../../../contexts/SocketContext';
 
 const Box = () => {
   const {selectedConversation, setSelectedConversation} = useConversations();
   const {onlineUsers} = useSocketContext();
   const isOnline = (onlineUsers ?? []).includes(selectedConversation?.receiver._id);
+
+  console.log("selectedConversation", selectedConversation);
 
   useEffect(() => {
     const chatDrawer = document.getElementById('chat-drawer');

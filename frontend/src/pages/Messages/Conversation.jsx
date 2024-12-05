@@ -17,7 +17,7 @@ const Conversation = ({conversation}) => {
   const isOnline = (onlineUsers ?? []).includes(participant._id);
 
   return (
-    <label htmlFor="chat-drawer" aria-label="close sidebar"className={
+    <label htmlFor="chat-drawer" aria-label="close sidebar" className={
       `flex p-4 text-md hover:bg-base-300 ${isSelected ? 'bg-base-200' : ''}`
       }
       onClick={() => setSelectedConversation({_id: conversation._id, receiver:participant, profilePic: profilePic})}
