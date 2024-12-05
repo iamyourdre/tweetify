@@ -11,8 +11,6 @@ const Box = () => {
   const {onlineUsers} = useSocketContext();
   const isOnline = (onlineUsers ?? []).includes(selectedConversation?.receiver._id);
 
-  console.log("selectedConversation", selectedConversation);
-
   useEffect(() => {
     const chatDrawer = document.getElementById('chat-drawer');
     if (chatDrawer) {

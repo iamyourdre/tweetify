@@ -3,10 +3,16 @@ import User from "../models/user.model.js";
 export const getUsersBySearch = async (req, res) => {
   try {
     const searchQuery = req.params.searchQuery;
+    const currentUserId = req.user._id;
     const users = await User.find({
-      $or: [
-        { username: { $regex: searchQuery, $options: "i" } },
-        { fullName: { $regex: searchQuery, $options: "i" } }
+      $and: [
+        { _id: { $ne: currentUserId } },
+        {
+          $or: [
+            { username: { $regex: searchQuery, $options: "i" } },
+            { fullName: { $regex: searchQuery, $options: "i" } }
+          ]
+        }
       ]
     })
     .select('-password -__v')

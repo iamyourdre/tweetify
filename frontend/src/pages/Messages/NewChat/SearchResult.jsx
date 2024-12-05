@@ -13,8 +13,12 @@ const SearchResult = ({data}) => {
     e.preventDefault();
     try {
       const conversation = await createConversations(data._id);
-      const participant = conversation.participants.find(participant => participant._id !== user._id);
-      setSelectedConversation({_id: conversation._id, receiver: participant, profilePic: participant.profilePic});
+      // if(data._id === user._id) {
+      //   setSelectedConversation({_id: conversation._id, receiver: conversation.participants[0], profilePic: conversation.participants[0].profilePic});
+      //   return;
+      // }
+      const receiver = conversation.participants.find(participant => participant._id !== user._id);
+      setSelectedConversation({_id: conversation._id, receiver: receiver, profilePic: receiver.profilePic});
     } catch (error) {
       console.error("Failed to create conversation", error);
     }

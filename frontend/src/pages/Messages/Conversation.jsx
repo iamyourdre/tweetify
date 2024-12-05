@@ -9,6 +9,9 @@ const Conversation = ({conversation}) => {
   const {user} = useAuthContext();
   const formattedTime = extractTime(conversation.updatedAt);
   const participant = conversation.participants.find(participant => participant._id !== user._id);
+  // if(!participant) {
+  //   participant = conversation.participants[0];
+  // }
   const { profilePic, fullName, _id } = participant;
 
   const {selectedConversation, setSelectedConversation} = useConversations();
@@ -32,7 +35,7 @@ const Conversation = ({conversation}) => {
           <p className='flex-1 text-md font-bold overflow-hidden'>{fullName}</p>
           <p className='flex-1 text-sm opacity-50 text-right'>{formattedTime}</p>
         </div>
-        <p className='text-sm opacity-50 line-clamp-1'>{conversation.messages[0].message}</p>
+        <p className='text-sm opacity-50 line-clamp-1'>{conversation.messages[0]?.message}</p>
       </div>
     </label>
   )
