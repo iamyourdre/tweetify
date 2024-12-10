@@ -139,11 +139,11 @@ export const getConversationById = async (req, res) => {
     ]);
     
     // Socket.io functionality
-    // const receiverSocketId = getReceiverSocketId(receiverId);
-    // if (receiverSocketId) {
-    //   // Emitting the message to the receiver
-    //   io.to(receiverSocketId).emit("updateConversation", conversation);
-    // }
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      // Emitting the message to the receiver
+      io.to(receiverSocketId).emit("updateConversation", conversation);
+    }
 
     res.status(200).json(conversation);
   } catch (error) {

@@ -10,16 +10,20 @@ const useListenMessages = () => {
     socket?.on("newMessage", (newMessage) => {
       setMessages([...messages, newMessage]);
     });
-    // socket?.on("updateConversation", (updateConversation) => {
-    //   const updatedConversations = conversations.map(conversation =>
-    //     conversation._id === updateConversation._id ? updateConversation : conversation
-    //   );
-    //   setConversations(updatedConversations);
-    // });
+    socket?.on("updateConversation", (updateConversation) => {
+      let updatedConversation = [updateConversation[0]]; 
+      conversations.forEach(conversation => {
+        if (conversation._id !== updateConversation[0]._id) {
+          updatedConversation.push(conversation);
+        }
+      });
+
+      setConversations(updatedConversation);
+    });
 
     return () => {
       socket?.off("newMessage");
-      // socket?.off("updateConversation");
+      socket?.off("updateConversation");
     }
   }, [socket, setMessages, messages]);
 }

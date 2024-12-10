@@ -15,8 +15,6 @@ const useUpdateConversations = () => {
         throw new Error(res.data.error);
       }
 
-      console.log("res.data", res.data);
-
       let updatedConversation = [res.data[0]]; 
       conversations.forEach(conversation => {
         if (conversation._id !== res.data[0]._id) {
