@@ -35,7 +35,7 @@ const Conversation = ({conversation}) => {
           <p className='flex-1 text-md font-bold overflow-hidden'>{fullName}</p>
           <p className='flex-1 text-sm opacity-50 text-right'>{formattedTime}</p>
         </div>
-        <p className='text-sm opacity-50 line-clamp-1'>{conversation.messages[0]?.message}</p>
+        <p className='text-sm opacity-50 line-clamp-1'>{conversation.lastMessage.message}</p>
       </div>
     </label>
   )

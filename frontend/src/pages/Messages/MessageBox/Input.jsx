@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { HiMiniPaperAirplane, HiXMark } from 'react-icons/hi2';
 import { FaRegImage } from "react-icons/fa6";
 import useSendMessage from '../../../hooks/useSendMessage';
+import useUpdateConversations from '../../../hooks/useUpdateConversations';
 
 const Input = () => {
   const [message, setMessage] = useState('');
   const [image, setImage] = useState(null);
   const { loading, sendMessage } = useSendMessage();
+  const { updateConversations } = useUpdateConversations();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const Input = () => {
     await sendMessage(formData);
     setMessage('');
     setImage(null);
+    updateConversations();
   };
 
   const handleImageChange = (event) => {
@@ -63,8 +66,11 @@ const Input = () => {
               placeholder="Type a message..."
               value={message}
               className="bg-transparent focus:outline-none flex-1"
+              autoFocus
             />
-            <HiMiniPaperAirplane className='text-2xl' />
+            <button type="submit">
+              <HiMiniPaperAirplane className='text-xl' />
+            </button>
           </div>
         </div>
       </div>

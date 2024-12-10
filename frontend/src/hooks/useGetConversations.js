@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxios from "./useAxios";
+import useConversation from "../zustand/useConversation";
 
 const useGetConversations = () => {
   const [loading, setLoading] = useState(false);
-  const [conversations, setConversations] = useState([]);
+  // const [conversations, setConversations] = useState([]);
+  const { conversations, setConversations } = useConversation();
+
   useEffect(() => {
     const getConversations = async () => {
       setLoading(true);
