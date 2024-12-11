@@ -11,14 +11,10 @@ const Bubbles = () => {
   const scrollRef = useRef();
   
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [messages, selectedConversation]);
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'instant' });
+    }
+  }, [messages, loading]);
 
   return (
     <>
