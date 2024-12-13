@@ -1,5 +1,4 @@
 import Post from "../models/post.model.js";
-import Comment from "../models/comment.model.js";
 
 export const createPost = async (req, res) => {
   try {
@@ -14,9 +13,9 @@ export const createPost = async (req, res) => {
       media: media || []
     });
 
-    await newPost.save();
+    const postData = await newPost.save();
 
-    res.status(201).json(newPost);
+    res.status(201).json(postData);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "Failed to create post." });

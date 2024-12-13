@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
   content: {
     type: String,
     required: true
@@ -14,7 +10,12 @@ const postSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-  parentPost: {
+  type: {
+    type: String,
+    enum : ['post','share'],
+    default: 'post'
+  },
+  sharedPost: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
     default: null

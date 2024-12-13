@@ -1,6 +1,16 @@
 import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
+  parentPost: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Post",
+    required: true
+  },
+  parentComment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment",
+    required: true
+  },
   content: {
     type: String,
     required: true
@@ -10,20 +20,11 @@ const commentSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-  post: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Post",
-    required: true
-  },
   media: {
-    type: [String],
-    validate: [arrayLimit, '{PATH} exceeds the limit of 4']
+    type: String,
+    default: null
   }
 }, {timestamps: true});
-
-function arrayLimit(val) {
-  return val.length <= 4;
-}
 
 const Comment = mongoose.model("Comment", commentSchema);
 
