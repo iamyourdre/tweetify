@@ -9,7 +9,7 @@ const commentSchema = new mongoose.Schema({
   parentComment: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Comment",
-    required: true
+    default: null
   },
   content: {
     type: String,

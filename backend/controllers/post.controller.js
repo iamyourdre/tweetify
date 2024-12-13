@@ -1,15 +1,14 @@
 import Post from "../models/post.model.js";
+import Comment from "../models/comment.model.js";
 
 export const createPost = async (req, res) => {
   try {
-    const { title, content, parentPostId, media } = req.body;
+    const { content, media } = req.body;
     const author = req.user._id;
 
     const newPost = new Post({
-      title,
       content,
       author,
-      parentPost: parentPostId || null,
       media: media || []
     });
 
