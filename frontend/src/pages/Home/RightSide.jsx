@@ -4,7 +4,7 @@ import Button from '../../components/Button'
 
 const RightSide = () => {
   return (
-    <div className='w-full h-full pl-4 bg-base-100 lg:border-l border-gray-600 pt-5'>
+    <div className='w-full h-full pl-4 bg-base-100 lg:border-l border-gray-600 min-h-screen pt-5'>
       <div className="h-full flex flex-col gap-5 pb-5">
         <div className="sticky top-5">
         <SearchBar />

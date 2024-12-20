@@ -7,6 +7,7 @@ import { useAuthContext } from './contexts/AuthContext'
 import { Toaster } from 'react-hot-toast'
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/SignUp';
+import Post from './pages/Post/Post';
 
 function App() {
   const {user} = useAuthContext();
@@ -19,6 +20,7 @@ function App() {
           <Route path="/notification" element={'notification'} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/posting" element={'posting'} />
+          <Route path="/p/:postId" element={<Post />} />
         </Route>
         <Route path="/login" element={user ? <Navigate to='/' /> : <Login />} />
         <Route path="/signup" element={user ? <Navigate to='/' /> : <SignUp />} />

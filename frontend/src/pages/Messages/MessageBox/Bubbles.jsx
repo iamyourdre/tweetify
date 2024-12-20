@@ -3,6 +3,7 @@ import Bubble from './Bubble'
 import useGetMessages from '../../../hooks/useGetMessages';
 import useListenMessages from '../../../hooks/useListenMessages';
 import useConversation from '../../../zustand/useConversation';
+import Loading from '../../../components/Loading';
 
 const Bubbles = () => {
   const { messages, loading } = useGetMessages();
@@ -20,11 +21,7 @@ const Bubbles = () => {
     <>
       <div className="h-screen w-full overflow-auto relative p-3">
         {loading && 
-          <div className='h-full'>
-            <div className="flex justify-center items-center h-full">
-              <span className="loading loading-dots loading-lg text-emerald-400"></span>
-            </div>
-          </div>
+         <Loading />
         }
         {!loading && !messages.length && 
           <div className='h-full'>

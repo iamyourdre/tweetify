@@ -12,17 +12,22 @@ const postSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum : ['post','share'],
+    enum : ['post','comment','repost'],
     default: 'post'
   },
-  sharedPost: {
+  parentPost: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Post",
+    default: null
+  },
+  repostContent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
     default: null
   },
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment"
+    ref: "Post"
   }],
   media: {
     type: [String],

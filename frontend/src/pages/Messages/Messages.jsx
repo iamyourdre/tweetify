@@ -6,6 +6,7 @@ import useGetConversations from '../../hooks/useGetConversations';
 import { HiMiniPlus } from 'react-icons/hi2';
 import Modal from './NewChat/Modal';
 import useSearchConversations from '../../hooks/useSearchConversations';
+import Loading from '../../components/Loading';
 
 const Messages = () => {
   const {loading: loadingConversations, conversations} = useGetConversations();
@@ -40,11 +41,7 @@ const Messages = () => {
 
                 {!search && <>
                   {loadingConversations && 
-                    <div className='h-full'>
-                      <div className="flex justify-center items-center h-full">
-                        <span className="loading loading-dots loading-lg text-emerald-400"></span>
-                      </div>
-                    </div>
+                    <Loading />
                   }
                   {!loadingConversations && !conversations.length && 
                     <div className='h-full'>
@@ -59,11 +56,7 @@ const Messages = () => {
                 </>}
                 {search && <>
                   {loadingSearch && 
-                    <div className='h-full'>
-                      <div className="flex justify-center items-center h-full">
-                        <span className="loading loading-dots loading-lg text-emerald-400"></span>
-                      </div>
-                    </div>
+                    <Loading />
                   }
                   {!loadingSearch && !results.length && 
                     <div className='h-full'>

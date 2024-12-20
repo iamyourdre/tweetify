@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import usePost from '../../zustand/usePost';
 import Post from '../../components/Post'
 import useGetPosts from '../../hooks/useGetPosts';
+import Loading from '../../components/Loading';
 
 const TabFYP = () => {
   const { loading, getFyp } = useGetPosts();
@@ -11,21 +12,22 @@ const TabFYP = () => {
     if(!fyp.length) {
       getFyp();
     }
-  }, [fyp]);
+  }, []);
 
   return (
     <div className=''>
       {loading && 
-        <div className='h-full'>
-          <div className="flex justify-center items-center h-full">
-            <span className="loading loading-dots loading-lg text-emerald-400"></span>
-          </div>
-        </div>
+        <Loading />
       }
-      {!loading &&
-        fyp.map((post) => (
-          <Post key={post._id} post={post} />
+      {!loading && fyp.length > 0 && 
+        fyp.map((post, index) => (
+          <Post key={index} post={post} />
         ))
+      }
+      {!loading && fyp.length === 0 &&
+        <div className='text-center text-gray-500 mt-10'>
+          No posts found
+        </div>
       }
     </div>
   )

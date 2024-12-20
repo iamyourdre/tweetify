@@ -20,7 +20,7 @@ const HomeContent = () => {
       <div className='grid lg:grid-cols-8'>
         <div className="lg:col-span-5 relative">
           <TabBar />
-          <div className='overflow-auto px-4 pt-20'>
+          <div className='overflow-auto pt-16 mt-0.5'>
             {activeHomeTab==1 ? <TabFYP /> : <TabFollowing />}
           </div>
         </div>

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { FaClover } from "react-icons/fa6";
 import { HiBell, HiChatBubbleOvalLeftEllipsis, HiMagnifyingGlass, HiMiniPencilSquare, HiMiniSquares2X2 } from "react-icons/hi2";
 import {useAuthContext} from '../contexts/AuthContext';
+import CreatePost from './CreatePost';
 
 const Sidebar = () => {
   const {user} = useAuthContext();
@@ -23,12 +24,13 @@ const Sidebar = () => {
       <SideNavLink link={links[2]} />
       <SideNavLink link={links[3]} />
 
-      <NavLink to="/" className="bg-accent text-white px-1.5 py-3 rounded-full border-0 mt-3 hover:bg-opacity-50 transition-all">
+      <button onClick={()=>document.getElementById('create_post_modal').showModal()} className="bg-accent text-white px-1.5 py-3 rounded-full border-0 mt-3 hover:bg-opacity-50 transition-all">
         <HiMiniPencilSquare className='w-6 h-6 mx-auto'/>
-      </NavLink>
+      </button>
       <NavLink to="/" className="mt-5">
         <img className='w-6 mt-3 h-auto mx-auto' src={user.profilePic}/>
       </NavLink>
+      <CreatePost/>
     </div>
   )
 }
