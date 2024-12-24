@@ -20,9 +20,11 @@ const TabFYP = () => {
         <Loading />
       }
       {!loading && fyp.length > 0 && 
-        fyp.map((post, index) => (
-          <Post key={index} post={post} />
-        ))
+        <div className='border-t border-gray-600 mt-1'>
+          {fyp.map(post => (
+            <Post key={post._id} post={post} />
+          ))}
+        </div>
       }
       {!loading && fyp.length === 0 &&
         <div className='text-center text-gray-500 mt-10'>

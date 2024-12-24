@@ -2,16 +2,21 @@ import Post from "../models/post.model.js";
 
 export const createPost = async (req, res) => {
   try {
-    const { content, type, parentPost, repostContent, media } = req.body;
+    const { text, type, parentPost, repostContent } = req.body;
     const author = req.user._id;
+    const images = req.files.map(file => file.path);
+
+    if (!text && images.length === 0) {
+      return res.status(400).json({ error: "Cannot create post with empty content." });
+    }
 
     const newPost = new Post({
-      content,
+      content: text,
       author,
       type,
       parentPost,
       repostContent,
-      media: media || [],
+      media: images,
     });
 
     const postData = await newPost.save();
@@ -25,9 +30,10 @@ export const createPost = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find()
+    const posts = await Post.find({ type: 'post' })
       .populate({ path: "author", select: "-password" })
-      .populate("comments");
+      .populate("comments")
+      .sort({ createdAt: -1 });
 
     res.status(200).json(posts);
   } catch (error) {
@@ -48,7 +54,11 @@ export const getPostById = async (req, res) => {
       return res.status(404).json({ error: "Post not found." });
     }
 
-    res.status(200).json(post);
+    const childPosts = await Post.find({ parentPost: id })
+      .populate({ path: "author", select: "-password" })
+      .populate("comments");
+
+    res.status(200).json({ post, childPosts });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "Failed to get post." });

@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum : ['post','comment','repost'],
+    enum : ['post','childPost','comment','repost'],
     default: 'post'
   },
   parentPost: {
@@ -25,14 +25,22 @@ const postSchema = new mongoose.Schema({
     ref: "Post",
     default: null
   },
+  media: {
+    type: [String],
+    validate: [arrayLimit, '{PATH} exceeds the limit of 4']
+  },
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post"
   }],
-  media: {
-    type: [String],
-    validate: [arrayLimit, '{PATH} exceeds the limit of 4']
-  }
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }],
+  reposts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Post"
+  }]
 }, {timestamps: true});
 
 function arrayLimit(val) {

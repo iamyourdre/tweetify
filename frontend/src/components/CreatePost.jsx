@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { HiMiniPencilSquare, HiMiniPlus, HiXMark } from 'react-icons/hi2';
+import { HiMiniPlus, HiXMark } from 'react-icons/hi2';
 import { useAuthContext } from '../contexts/AuthContext';
-import { HiPlus } from 'react-icons/hi';
 import { FaRegImage } from 'react-icons/fa6';
 import Button from './Button';
+import useCreatePost from '../hooks/useCreatePost';
+import toast from 'react-hot-toast';
+import { NavLink } from 'react-router-dom';
+import { use } from 'react';
 
 const CreatePost = () => {
   const { user } = useAuthContext();
   const [threads, setThreads] = useState([{ text: '', images: [] }]);
   const [activeThreadIndex, setActiveThreadIndex] = useState(0);
+  const { loading, createPost, createMultiplePosts } = useCreatePost();
+
+  useEffect(() => {
+  }, [threads]);
 
   const handleAddThread = () => {
     setThreads([...threads, { text: '', images: [] }]);
@@ -30,6 +37,34 @@ const CreatePost = () => {
     if (activeThreadIndex === index) {
       setActiveThreadIndex(null);
     }
+  };
+
+  const handlePost = async () => {
+    if (threads[0].text === '' && threads[0].images.length === 0) {
+      document.getElementById('create_post_modal').close();
+      toast.error((t) => (
+        <div className='z-50'>
+          Couldn't post empty content.
+        </div>
+      ));
+    } else {
+      document.getElementById('create_post_modal').close();
+      toast.promise(
+        createMultiplePosts(threads),
+        {
+          loading: 'Posting...',
+          success: (data) => (
+            <div>
+              Post created!&nbsp;
+              <NavLink to={`/p/${data._id}`} className="underline font-bold">View post</NavLink>
+            </div>
+          ),
+          error: 'Something went wrong. Please try again.',
+        }
+      );
+    }
+    setThreads([{ text: '', images: [] }]);
+    setActiveThreadIndex(0);
   };
 
   return (
@@ -56,7 +91,7 @@ const CreatePost = () => {
           ))}
         </div>
         <div className="border-t border-gray-600 p-4 text-right">
-          <Button text={'Post All'}/>
+          <Button text={'Post All'} onClick={handlePost}/>
         </div>
       </div>
       <form method="dialog" className="modal-backdrop backdrop-blur-sm bg-white bg-opacity-20">
