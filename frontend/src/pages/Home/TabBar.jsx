@@ -5,23 +5,35 @@ import useGetPosts from '../../hooks/useGetPosts';
 const TabBar = () => {
   const { activeHomeTab, setActiveHomeTab } = useContext(HomeTabContext);
   const { loading, getFyp } = useGetPosts();
-  const [clickCount, setClickCount] = useState(0);
+  const [clickFypCount, setClickFypCount] = useState(0);
+  const [clickFollowingCount, setClickFollowingCount] = useState(0);
 
   const handleTabFyp = () => {
-    setClickCount(prevCount => {
-      const newCount = prevCount + 1;
-      if (newCount === 2) {
-        setActiveHomeTab(1);
-        getFyp();
-        return 0; // reset click count after triggering getFyp
-      }
-      return newCount;
-    });
+    setActiveHomeTab(1);
+    setClickFypCount(clickFypCount + 1);
+    if(clickFypCount === 1) {
+      getFyp();
+      setClickFypCount(0);
+      setClickFollowingCount(0);
+      console.log('fyp refreshed');
+    } else {
+      setClickFollowingCount(0);
+      console.log('fyp opened');
+    }
   };
 
   const handleTabFollowing = () => {
     setActiveHomeTab(2);
-    setClickCount(0); // reset click count when switching tabs
+    setClickFollowingCount(clickFollowingCount + 1);
+    if(clickFollowingCount === 1) {
+      // getFollowing();
+      setClickFollowingCount(0);
+      setClickFypCount(0);
+      console.log('following refreshed');
+    } else {
+      setClickFypCount(0);
+      console.log('following opened');
+    }
   }
 
   return (
