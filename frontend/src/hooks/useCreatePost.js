@@ -53,7 +53,47 @@ const useCreatePost = () => {
     }
   }
 
-  return { loading, createMultiplePosts, createPost };
-}
+  const createRepost = async (repostContent) => {
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append('text', repostContent.caption);
+      formData.append('repostContent', repostContent._id);
+      formData.append('type', 'repost');
+
+      const res = await useAxios.post('/posts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (res.data.error) {
+        throw new Error(res.data.error);
+      }
+      return res.data;
+    } catch (error) {
+      toast.error(error.response?.data?.error || error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+  
+  const deletePost = async (postId) => {
+    setLoading(true);
+    try {
+      const res = await useAxios.delete(`/posts/${postId}`);
+      if (res.data.error) {
+        throw new Error(res.data.error);
+      }
+      return res.data;
+    } catch (error) {
+      toast.error(error.response?.data?.error || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, createMultiplePosts, createPost, createRepost, deletePost };
+};
 
 export default useCreatePost;

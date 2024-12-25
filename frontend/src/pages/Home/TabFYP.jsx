@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import usePost from '../../zustand/usePost';
-import Post from '../../components/Post'
+import Post from '../../components/Post';
 import useGetPosts from '../../hooks/useGetPosts';
 import Loading from '../../components/Loading';
+import Repost from '../../components/Repost';
 
 const TabFYP = () => {
   const { loading, getFyp } = useGetPosts();
@@ -22,7 +23,15 @@ const TabFYP = () => {
       {!loading && fyp.length > 0 && 
         <div className='border-t border-gray-600 mt-1'>
           {fyp.map(post => (
-            <Post key={post._id} post={post} />
+            post.type === 'post' ? (
+            <div className='border-b border-gray-600' key={post._id}>
+              <Post post={post} />
+            </div>
+            ) : (
+              <div className='border-b border-gray-600' key={post._id}>
+                <Repost post={post} />
+              </div>
+            )
           ))}
         </div>
       }
@@ -35,4 +44,4 @@ const TabFYP = () => {
   )
 }
 
-export default TabFYP
+export default TabFYP;

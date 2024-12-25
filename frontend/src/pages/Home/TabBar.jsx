@@ -15,10 +15,8 @@ const TabBar = () => {
       getFyp();
       setClickFypCount(0);
       setClickFollowingCount(0);
-      console.log('fyp refreshed');
     } else {
       setClickFollowingCount(0);
-      console.log('fyp opened');
     }
   };
 
@@ -29,10 +27,8 @@ const TabBar = () => {
       // getFollowing();
       setClickFollowingCount(0);
       setClickFypCount(0);
-      console.log('following refreshed');
     } else {
       setClickFypCount(0);
-      console.log('following opened');
     }
   }
 

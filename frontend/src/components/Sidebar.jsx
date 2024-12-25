@@ -4,6 +4,7 @@ import { FaClover } from "react-icons/fa6";
 import { HiBell, HiChatBubbleOvalLeftEllipsis, HiMagnifyingGlass, HiMiniPencilSquare, HiMiniSquares2X2 } from "react-icons/hi2";
 import {useAuthContext} from '../contexts/AuthContext';
 import CreatePost from './CreatePost';
+import CreateRepost from './CreateRepost';
 
 const Sidebar = () => {
   const {user} = useAuthContext();
@@ -31,6 +32,7 @@ const Sidebar = () => {
         <img className='w-6 mt-3 h-auto mx-auto' src={user.profilePic}/>
       </NavLink>
       <CreatePost/>
+      <CreateRepost/>
     </div>
   )
 }

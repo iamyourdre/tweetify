@@ -12,7 +12,7 @@ const CreatePost = () => {
   const { user } = useAuthContext();
   const [threads, setThreads] = useState([{ text: '', images: [] }]);
   const [activeThreadIndex, setActiveThreadIndex] = useState(0);
-  const { loading, createPost, createMultiplePosts } = useCreatePost();
+  const { createMultiplePosts } = useCreatePost();
 
   useEffect(() => {
   }, [threads]);
@@ -35,8 +35,13 @@ const CreatePost = () => {
     const newThreads = threads.filter((_, i) => i !== index);
     setThreads(newThreads);
     if (activeThreadIndex === index) {
-      setActiveThreadIndex(null);
+      setActiveThreadIndex(index-1===-1 ? 0 : index-1);
     }
+  };
+
+  const handleReset = () => {
+    setThreads([{ text: '', images: [] }]);
+    setActiveThreadIndex(0);
   };
 
   const handlePost = async () => {
@@ -90,8 +95,11 @@ const CreatePost = () => {
             />
           ))}
         </div>
-        <div className="border-t border-gray-600 p-4 text-right">
-          <Button text={'Post All'} onClick={handlePost}/>
+        <div className="border-t border-gray-600 p-4 flex">
+          <button onClick={handleReset} className="text-red-600 font-semibold">Reset</button>
+          <div className="flex-1 text-right">
+            <Button text={'Post All'} onClick={handlePost}/>
+          </div>
         </div>
       </div>
       <form method="dialog" className="modal-backdrop backdrop-blur-sm bg-white bg-opacity-20">
