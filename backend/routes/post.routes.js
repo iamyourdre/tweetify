@@ -3,6 +3,7 @@ import { createPost, getPosts, getPostById, deletePost } from '../controllers/po
 import protectRoute from '../middlewares/protectRoute.js';
 import multer from 'multer';
 import path from 'path';
+import { likePost, unlikePost } from '../controllers/like.controller.js';
 
 const router = express.Router();
 
@@ -21,5 +22,10 @@ router.post('/', protectRoute, upload.array('media', 4), createPost);
 router.get('/', getPosts);
 router.get('/:id', getPostById);
 router.delete('/:id', protectRoute, deletePost);
+
+// Routes for liking and unliking posts
+router.post('/:id/like', protectRoute, likePost);
+router.post('/:id/unlike', protectRoute, unlikePost);
+
 
 export default router;

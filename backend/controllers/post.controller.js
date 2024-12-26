@@ -19,6 +19,14 @@ export const createPost = async (req, res) => {
       media: images,
     });
 
+    if (type === 'repost' && repostContent) {
+      const parent = await Post.findById(repostContent);
+      if (parent) {
+        parent.reposts.push(newPost._id);
+        await parent.save();
+      }
+    }
+
     const postData = await newPost.save();
 
     res.status(201).json(postData);

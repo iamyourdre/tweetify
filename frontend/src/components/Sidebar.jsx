@@ -5,6 +5,7 @@ import { HiBell, HiChatBubbleOvalLeftEllipsis, HiMagnifyingGlass, HiMiniPencilSq
 import {useAuthContext} from '../contexts/AuthContext';
 import CreatePost from './CreatePost';
 import CreateRepost from './CreateRepost';
+import CreateComment from './CreateComment';
 
 const Sidebar = () => {
   const {user} = useAuthContext();
@@ -33,6 +34,7 @@ const Sidebar = () => {
       </NavLink>
       <CreatePost/>
       <CreateRepost/>
+      <CreateComment/>
     </div>
   )
 }

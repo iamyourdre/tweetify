@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { FaComment, FaHeart, FaRegHeart, FaShare, FaTrash } from "react-icons/fa6";
 import { useRepostContext } from '../contexts/RepostContext';
 import ManagePost from './ManagePost';
+import useLikePost from '../hooks/useLikePost';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Post = ({ post, showFooter = true }) => {
+  console.log("post", post)
   const getRelativeTime = formatDistanceToNow(post.createdAt, { addSuffix: true });
   const { setRepostPost } = useRepostContext();
+  const { likePost, unlikePost } = useLikePost();
+  const { user } = useAuthContext();
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(post.likes.length);
+  const [repostsCount, setRepostsCount] = useState(post.reposts.length);
+
+  useEffect(() => {
+    if (user && post.likes.includes(user._id)) {
+      setLiked(true);
+    }
+  }, [user, post.likes]);
 
   const handlePostClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -16,6 +30,22 @@ const Post = ({ post, showFooter = true }) => {
   const handleRepostClick = () => {
     setRepostPost(post);
     document.getElementById('repost_modal').showModal();
+  };
+
+  const handleLikeClick = async () => {
+    if (liked) {
+      await unlikePost(post._id);
+      setLiked(false);
+      setLikesCount(likesCount - 1);
+    } else {
+      await likePost(post._id);
+      setLiked(true);
+      setLikesCount(likesCount + 1);
+    }
+  };
+
+  const handleCommentClick = () => {
+    document.getElementById('create_comment_modal').showModal();
   };
 
   return (
@@ -34,18 +64,20 @@ const Post = ({ post, showFooter = true }) => {
         <ImageGrid media={post.media} />
       </Link>
       <div className={`flex gap-6 py-6 px-4 ${showFooter ? '' : 'hidden'}`}>
-        <Link className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center" to={`/p/${post._id}`} onClick={handlePostClick}>
+        <button onClick={handleCommentClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
           <FaComment className='text-xl inline' />0
-        </Link>
-        <button onClick={handleRepostClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
-          <FaShare className='text-xl inline' />0
         </button>
-        <div className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
-          <FaRegHeart className='text-xl inline' />0
-        </div>
-        <div className="flex-1 text-gray-500 hover:text-accent text-right">
-          <ManagePost id={post._id}/>
-        </div>
+        <button onClick={handleRepostClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
+          <FaShare className='text-xl inline' />{repostsCount}
+        </button>
+        <button onClick={handleLikeClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
+          {liked ? <FaHeart className='text-xl inline text-red-500' /> : <FaRegHeart className='text-xl inline' />} {likesCount}
+        </button>
+        {post.author._id === user._id && (
+          <div className="flex-1 text-gray-500 hover:text-accent text-right">
+            <ManagePost id={post._id} />
+          </div>
+        )}
       </div>
     </>
   );

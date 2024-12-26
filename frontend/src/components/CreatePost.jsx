@@ -6,7 +6,6 @@ import Button from './Button';
 import useCreatePost from '../hooks/useCreatePost';
 import toast from 'react-hot-toast';
 import { NavLink } from 'react-router-dom';
-import { use } from 'react';
 
 const CreatePost = () => {
   const { user } = useAuthContext();
