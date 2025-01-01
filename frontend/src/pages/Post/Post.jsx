@@ -5,8 +5,10 @@ import PostComponent from '../../components/Post';
 import RepostComponent from '../../components/Repost';
 import { HiChevronLeft } from 'react-icons/hi2';
 import Loading from '../../components/Loading';
+import {CreateCommentSide} from '../../components/CreateComment';
 
 const Post = () => {
+  
   const [post, setPost] = useState(null);
   const { postId } = useParams();
   const { loading, getPost } = useGetPost();
@@ -16,6 +18,8 @@ const Post = () => {
     getPost({ postId })
       .then((data) => setPost(data))
   }, [postId]);
+
+  console.log("post", post);
 
   return (
     <>
@@ -30,20 +34,27 @@ const Post = () => {
               </div>
             </div>
             <div className='border-b border-gray-600 '>
-              {post.post.type === 'post' ? (
-                <PostComponent post={post.post} />
+              {post.post.type !== 'repost' ? (
+                <PostComponent post={post.post}/>
               ) : (
-                <RepostComponent post={post.post} />
+                <RepostComponent post={post.post}/>
               )}
             </div>
             {post.childPosts.map((childPost) => (
+              childPost.type === 'childPost' && 
               <div className='border-b border-gray-600' key={childPost._id}>
-                <PostComponent post={childPost} />
+                <PostComponent post={childPost}/>
+              </div>
+            ))}
+            {post.childPosts.map((childPost) => (
+              childPost.type === 'comment' && 
+              <div className='border-b border-gray-600' key={childPost._id}>
+                <PostComponent post={childPost}/>
               </div>
             ))}
           </div>
-          <div className="lg:col-span-3 hidden z-50 lg:flex flex-col gap-4">
-            R
+          <div className="lg:col-span-3 hidden z-50 lg:flex flex-col gap-4 border-r border-gray-700">
+            <CreateCommentSide/>
           </div>
         </div>
       )}

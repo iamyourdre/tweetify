@@ -7,7 +7,7 @@ import ManagePost from './ManagePost';
 import useLikePost from '../hooks/useLikePost';
 import { useAuthContext } from '../contexts/AuthContext';
 
-const Repost = ({ post }) => {
+const Repost = ({ post, length }) => {
   const getRelativeTime = formatDistanceToNow(post.createdAt, { addSuffix: true });
   const { setRepostPost } = useRepostContext();
   const { likePost, unlikePost } = useLikePost();
@@ -76,9 +76,9 @@ const Repost = ({ post }) => {
           }
         </div>
       </div>
-      <div className="flex gap-6 py-6 px-4">
+      <div className="flex gap-6 py-5 px-4">
         <button onClick={handleCommentClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
-          <FaComment className='text-xl inline' />0
+          <FaComment className='text-xl inline' />{post.comments.length}
         </button>
         <button onClick={handleRepostClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
           <FaShare className='text-xl inline' />{repostsCount}

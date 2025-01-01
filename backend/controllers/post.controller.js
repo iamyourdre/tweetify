@@ -25,6 +25,12 @@ export const createPost = async (req, res) => {
         parent.reposts.push(newPost._id);
         await parent.save();
       }
+    } else if (type === 'comment') {
+      const parent = await Post.findById(parentPost);
+      if (parent) {
+        parent.comments.push(newPost._id);
+        await parent.save();
+      }
     }
 
     const postData = await newPost.save();
@@ -61,12 +67,12 @@ export const getPostById = async (req, res) => {
 
     const post = await Post.findById(id)
       .populate({ path: "author", select: "-password" })
-      .populate("comments")
+      .populate({ path: "comments", select: ["_id"] })
       .populate({
         path: "repostContent",
         select: ["-parentPost", "-repostContent", "-reposts", "-likes"],
         populate: { path: "author", select: ["username", "profilePic", "fullName"] }
-      });
+      })
     if (!post) {
       return res.status(404).json({ error: "Post not found." });
     }

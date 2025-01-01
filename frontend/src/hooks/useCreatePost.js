@@ -93,7 +93,35 @@ const useCreatePost = () => {
     }
   };
 
-  return { loading, createMultiplePosts, createPost, createRepost, deletePost };
+  const createComment = async (thread, postId) => {
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append('parentPost', postId);
+      formData.append('text', thread.text);
+      formData.append('type', 'comment');
+      thread.images.forEach((image) => {
+        formData.append('media', image);
+      });
+
+      const res = await useAxios.post(`/posts`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (res.data.error) {
+        throw new Error(res.data.error);
+      }
+      return res.data;
+    } catch (error) {
+      toast.error(error.response?.data?.error || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, createMultiplePosts, createPost, createRepost, deletePost, createComment };
 };
 
 export default useCreatePost;

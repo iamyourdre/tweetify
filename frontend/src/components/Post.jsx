@@ -8,7 +8,6 @@ import useLikePost from '../hooks/useLikePost';
 import { useAuthContext } from '../contexts/AuthContext';
 
 const Post = ({ post, showFooter = true }) => {
-  console.log("post", post)
   const getRelativeTime = formatDistanceToNow(post.createdAt, { addSuffix: true });
   const { setRepostPost } = useRepostContext();
   const { likePost, unlikePost } = useLikePost();
@@ -50,7 +49,12 @@ const Post = ({ post, showFooter = true }) => {
 
   return (
     <>
-      <Link className="flex w-full flex-col gap-3 pt-6 px-4 transition duration-200 ease-in-out hover:bg-base-200" to={`/p/${post._id}`}>
+      {post.type === 'comment' && (
+        <Link className="inline-block px-4 py-4 text-sm" to={`/p/${post.parentPost}`}>
+          <span className='text-gray-400 hover:underline'>Replied: </span>
+        </Link>
+      )}
+      <Link className={`${post.type !== 'comment' ? 'pt-6' : ''} flex w-full flex-col pb-2 gap-3 px-4 transition duration-200 ease-in-out hover:bg-base-200`} to={`/p/${post._id}`}>
         <div className='flex text-md' id={post._id} onClick={handlePostClick}>
           <img className='w-10 h-10' src={post.author.profilePic} />
           <div className="leading-tight pl-3 w-full">
@@ -63,9 +67,9 @@ const Post = ({ post, showFooter = true }) => {
         <p className=''>{post.content}</p>
         <ImageGrid media={post.media} />
       </Link>
-      <div className={`flex gap-6 py-6 px-4 ${showFooter ? '' : 'hidden'}`}>
+      <div className={`flex gap-6 pb-5 pt-2 px-4 ${showFooter ? '' : 'hidden'}`}>
         <button onClick={handleCommentClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
-          <FaComment className='text-xl inline' />0
+          <FaComment className='text-xl inline' />{post.comments.length}
         </button>
         <button onClick={handleRepostClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
           <FaShare className='text-xl inline' />{repostsCount}

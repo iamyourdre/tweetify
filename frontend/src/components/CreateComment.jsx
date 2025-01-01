@@ -5,12 +5,13 @@ import { FaRegImage } from 'react-icons/fa6';
 import Button from './Button';
 import useCreatePost from '../hooks/useCreatePost';
 import toast from 'react-hot-toast';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const CreateComment = () => {
   const { user } = useAuthContext();
+  const { postId } = useParams();
   const [thread, setThread] = useState({ text: '', images: [] });
-  const { createMultiplePosts } = useCreatePost();
+  const { createComment } = useCreatePost();
 
   const handleThreadChange = (newText) => {
     setThread({ ...thread, text: newText });
@@ -35,7 +36,7 @@ const CreateComment = () => {
     } else {
       document.getElementById('create_comment_modal').close();
       toast.promise(
-        createMultiplePosts([thread]),
+        createComment(thread, postId),
         {
           loading: 'Posting...',
           success: (data) => (
@@ -78,6 +79,82 @@ const CreateComment = () => {
         <button></button>
       </form>
     </dialog>
+  );
+};
+
+
+const CreateCommentSide = () => {
+  const { user } = useAuthContext();
+  const { postId } = useParams();
+  const [thread, setThread] = useState({ text: '', images: [] });
+  const { createComment } = useCreatePost();
+
+  const handleThreadChange = (newText) => {
+    setThread({ ...thread, text: newText });
+  };
+
+  const handleFileChange = (newFiles) => {
+    setThread({ ...thread, images: newFiles });
+  };
+
+  const handleReset = () => {
+    setThread({ text: '', images: [] });
+  };
+
+  const handlePost = async () => {
+    if (thread.text === '' && thread.images.length === 0) {
+      document.getElementById('create_comment_modal').close();
+      toast.error((t) => (
+        <div className='z-50'>
+          Couldn't post empty content.
+        </div>
+      ));
+    } else {
+      document.getElementById('create_comment_modal').close();
+      toast.promise(
+        createComment(thread, postId),
+        {
+          loading: 'Posting...',
+          success: (data) => (
+            <div>
+              Comment created!&nbsp;
+              <NavLink to={`/p/${data._id}`} className="underline font-bold">View comment</NavLink>
+            </div>
+          ),
+          error: 'Something went wrong. Please try again.',
+        }
+      );
+    }
+    setThread({ text: '', images: [] });
+  };
+
+  return (
+    <div className="">
+      <div className="top-10 my-0 flex flex-col p-0">
+        <div className="p-4 py-5 border-b border-gray-700">
+          <div className="text-lg font-semibold text-center">Create Comment</div>
+          <HiXMark onClick={() => document.getElementById('create_comment_modal').close()} className='text-xl cursor-pointer absolute top-0 left-0 my-5 mx-4'/>
+        </div>
+        <div className="flex flex-col overflow-auto p-4 gap-4">
+          <Thread
+            data={{ profilePic: user.profilePic }}
+            text={thread.text}
+            images={thread.images}
+            setText={handleThreadChange}
+            setImages={handleFileChange}
+          />
+        </div>
+        <div className="border-t border-gray-700 p-4 flex">
+          <button onClick={handleReset} className="text-red-600 font-semibold">Reset</button>
+          <div className="flex-1 text-right">
+            <Button text={'Send Comment'} onClick={handlePost}/>
+          </div>
+        </div>
+      </div>
+      <form method="dialog" className="modal-backdrop backdrop-blur-sm bg-white bg-opacity-20">
+        <button></button>
+      </form>
+    </div>
   );
 };
 
@@ -156,4 +233,4 @@ const ImagePreview = ({ images, setImages }) => {
   );
 };
 
-export default CreateComment;
+export {CreateComment, CreateCommentSide};
