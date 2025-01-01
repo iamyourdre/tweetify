@@ -65,9 +65,14 @@ const Repost = ({ post }) => {
         </Link>
         <div className="px-4">
           {/* <RepostedPost post={post.repostContent} /> */}
-          {post.repostContent ? 
+          {/* {post.repostContent ? 
             <RepostedPost post={post.repostContent} /> :
             <p className='border p-3 border-gray-600 text-gray-500 rounded-lg'>Post has been deleted</p>
+          } */}
+          {post.type === 'repost' ? 
+            post.repostContent ? <RepostedPost post={post.repostContent} /> :
+            <p className='border p-3 border-gray-600 text-gray-500 rounded-lg'>Post has been deleted</p> :
+            null
           }
         </div>
       </div>
