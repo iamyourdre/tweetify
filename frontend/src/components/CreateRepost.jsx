@@ -38,7 +38,8 @@ const CreateRepost = () => {
     <dialog id="repost_modal" className="modal max-h-screen">
       <div className="modal-box max-w-xl top-10 my-0 flex flex-col p-0">
         <div className="p-4 border-b border-gray-600">
-          <HiXMark onClick={() => document.getElementById('repost_modal').close()} className='text-xl cursor-pointer' />
+          <div className="text-lg font-semibold text-center">Repost A Content</div>
+          <HiXMark onClick={() => document.getElementById('repost_modal').close()} className='text-xl cursor-pointer absolute top-0 left-0 my-5 mx-4'/>
         </div>
         <div className="flex flex-col overflow-auto p-4 gap-4">
           <div className="flex gap-4">

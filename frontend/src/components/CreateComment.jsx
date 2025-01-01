@@ -54,8 +54,9 @@ const CreateComment = () => {
   return (
     <dialog id="create_comment_modal" className="modal max-h-screen">
       <div className="modal-box max-w-xl top-10 my-0 flex flex-col p-0">
-        <div className="p-4 border-b border-gray-600 grid grid-cols-3 justify-start items-center">
-          <HiXMark onClick={() => document.getElementById('create_comment_modal').close()} className='text-xl cursor-pointer' />
+        <div className="p-4 border-b border-gray-600">
+          <div className="text-lg font-semibold text-center">Create Comment</div>
+          <HiXMark onClick={() => document.getElementById('create_comment_modal').close()} className='text-xl cursor-pointer absolute top-0 left-0 my-5 mx-4'/>
         </div>
         <div className="flex flex-col overflow-auto p-4 gap-4">
           <Thread
