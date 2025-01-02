@@ -110,3 +110,23 @@ export const deletePost = async (req, res) => {
     res.status(500).json({ error: "Failed to delete post." });
   }
 };
+
+export const getPostsByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const posts = await Post.find({ author: userId })
+      .populate({ path: "author", select: "-password" })
+      .populate("comments")
+      .populate({
+        path: "repostContent",
+        select: ["-parentPost", "-repostContent", "-reposts", "-likes"],
+        populate: { path: "author", select: ["username", "profilePic", "fullName"] }
+      })
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: "Failed to get posts by user." });
+  }
+};

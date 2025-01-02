@@ -29,7 +29,7 @@ const Sidebar = () => {
       <button onClick={()=>document.getElementById('create_post_modal').showModal()} className="bg-accent text-white px-1.5 py-3 rounded-full border-0 mt-3 hover:bg-opacity-50 transition-all">
         <HiMiniPencilSquare className='w-6 h-6 mx-auto'/>
       </button>
-      <NavLink to="/" className="mt-5">
+      <NavLink to={user.username} className="mt-5">
         <img className='w-6 mt-3 h-auto mx-auto' src={user.profilePic}/>
       </NavLink>
       <CreatePost/>

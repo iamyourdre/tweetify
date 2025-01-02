@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPost, getPosts, getPostById, deletePost } from '../controllers/post.controller.js';
+import { createPost, getPosts, getPostById, deletePost, getPostsByUserId } from '../controllers/post.controller.js';
 import protectRoute from '../middlewares/protectRoute.js';
 import multer from 'multer';
 import path from 'path';
@@ -23,9 +23,11 @@ router.get('/', getPosts);
 router.get('/:id', getPostById);
 router.delete('/:id', protectRoute, deletePost);
 
+// Route for getting posts by userId
+router.get('/user/:userId', protectRoute, getPostsByUserId);
+
 // Routes for liking and unliking posts
 router.post('/:id/like', protectRoute, likePost);
 router.post('/:id/unlike', protectRoute, unlikePost);
-
 
 export default router;
