@@ -1,4 +1,5 @@
 import Post from "../models/post.model.js";
+import { createNotification } from "./notification.controller.js";
 
 export const likePost = async (req, res) => {
   try {
@@ -16,6 +17,9 @@ export const likePost = async (req, res) => {
 
     post.likes.push(userId);
     await post.save();
+
+    // Create notification
+    await createNotification(userId, post.author, 'liked', id);
 
     res.status(200).json({ message: "Post liked successfully." });
   } catch (error) {

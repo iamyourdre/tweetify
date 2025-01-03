@@ -1,4 +1,5 @@
 import Post from "../models/post.model.js";
+import { createNotification } from "./notification.controller.js";
 
 export const createPost = async (req, res) => {
   try {
@@ -24,12 +25,18 @@ export const createPost = async (req, res) => {
       if (parent) {
         parent.reposts.push(newPost._id);
         await parent.save();
+
+        // Create notification for repost
+        await createNotification(author, parent.author, 'reposted', repostContent);
       }
     } else if (type === 'comment') {
       const parent = await Post.findById(parentPost);
       if (parent) {
         parent.comments.push(newPost._id);
         await parent.save();
+
+        // Create notification for comment
+        await createNotification(author, parent.author, 'commented', parentPost);
       }
     }
 
@@ -41,6 +48,8 @@ export const createPost = async (req, res) => {
     res.status(500).json({ error: "Failed to create post." });
   }
 };
+
+// Existing code...
 
 export const getPosts = async (req, res) => {
   try {

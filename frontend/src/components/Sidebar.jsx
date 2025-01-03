@@ -6,6 +6,7 @@ import {useAuthContext} from '../contexts/AuthContext';
 import CreatePost from './CreatePost';
 import CreateRepost from './CreateRepost';
 import { CreateComment } from './CreateComment';
+import useListenNotification from '../hooks/useListenNotification';
 
 const Sidebar = () => {
   const {user} = useAuthContext();
@@ -14,7 +15,10 @@ const Sidebar = () => {
     { to: "/search", icon: <HiMagnifyingGlass className="w-7 h-auto mx-auto" /> },
     { to: "/notification", icon: <HiBell className="w-7 h-auto mx-auto" /> },
     { to: "/messages", icon: <HiChatBubbleOvalLeftEllipsis className="w-7 h-auto mx-auto" /> },
-  ];  
+  ];
+  
+  useListenNotification();
+
   return (
     <div className="fixed z-50 flex-none py-3 px-2 lg:px-3 h-full flex flex-col border-r border-gray-600 bg-base-100">
       <NavLink to="/" className="mb-8">

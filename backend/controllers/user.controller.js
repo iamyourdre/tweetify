@@ -72,6 +72,9 @@ export const followUser = async (req, res) => {
 
     const newFollow = new Follower({ userId, followerId: targetUserId });
     await newFollow.save();
+
+    await createNotification(userId, targetUserId, 'followed', userId);
+
     res.status(200).json({ message: "Followed successfully." });
   } catch (error) {
     console.log(error.message);

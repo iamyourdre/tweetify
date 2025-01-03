@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { FaComment, FaHeart, FaRegHeart, FaShare, FaTrash } from "react-icons/fa6";
 import { useRepostContext } from '../contexts/RepostContext';
@@ -8,6 +8,7 @@ import useLikePost from '../hooks/useLikePost';
 import { useAuthContext } from '../contexts/AuthContext';
 
 const Post = ({ post, showFooter = true }) => {
+  const navigate = useNavigate();
   const getRelativeTime = formatDistanceToNow(post.createdAt, { addSuffix: true });
   const { setRepostPost } = useRepostContext();
   const { likePost, unlikePost } = useLikePost();
@@ -47,6 +48,11 @@ const Post = ({ post, showFooter = true }) => {
     document.getElementById('create_comment_modal').showModal();
   };
 
+  const handleAuthorClick = (e) => {
+    e.stopPropagation();
+    navigate('/' + post.author.username);
+  };
+
   return (
     <>
       {post.type === 'comment' && (
@@ -54,10 +60,10 @@ const Post = ({ post, showFooter = true }) => {
           <span className='text-gray-400 hover:underline'>Replied: </span>
         </Link>
       )}
-      <Link className={`${post.type !== 'comment' ? 'pt-6' : ''} flex w-full flex-col pb-2 gap-3 px-4 transition duration-200 ease-in-out hover:bg-base-200`} to={`/p/${post._id}`}>
+      <div className={`${post.type !== 'comment' ? 'pt-6' : ''} flex w-full flex-col pb-2 gap-3 px-4 transition duration-200 ease-in-out hover:bg-base-200`} onClick={() => navigate(`/p/${post._id}`)}>
         <div className='flex text-md' id={post._id} onClick={handlePostClick}>
-          <img className='w-10 h-10' src={post.author.profilePic} />
-          <div className="leading-tight pl-3 w-full">
+          <img className='w-10 h-10 cursor-pointer' src={post.author.profilePic} onClick={handleAuthorClick} />
+          <div className="leading-tight pl-3 w-full cursor-pointer" onClick={handleAuthorClick}>
             <div className="flex">
               <p className='font-bold'>{post.author.fullName}</p>
             </div>
@@ -66,7 +72,7 @@ const Post = ({ post, showFooter = true }) => {
         </div>
         <p className=''>{post.content}</p>
         <ImageGrid media={post.media} />
-      </Link>
+      </div>
       <div className={`flex gap-6 pb-5 pt-2 px-4 ${showFooter ? '' : 'hidden'}`}>
         <button onClick={handleCommentClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
           <FaComment className='text-xl inline' />{post.comments.length}

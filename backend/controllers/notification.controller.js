@@ -1,11 +1,8 @@
 import Notification from "../models/notification.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 
-export const createNotification = async (req, res) => {
+export const createNotification = async (notifBy, notifTo, type, post) => {
   try {
-    const { notifTo, type, post } = req.body;
-    const notifBy = req.user._id;
-
     const newNotification = new Notification({
       notifBy,
       notifTo,
@@ -14,6 +11,7 @@ export const createNotification = async (req, res) => {
     });
 
     await newNotification.save();
+    console.log("notifTo", notifTo);
 
     // Socket.io functionality
     const receiverSocketId = getReceiverSocketId(notifTo);
@@ -22,10 +20,10 @@ export const createNotification = async (req, res) => {
       io.to(receiverSocketId).emit("newNotification", newNotification);
     }
 
-    res.status(200).json(newNotification);
+    return newNotification;
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ error: "Failed to create notification." });
+    throw new Error("Failed to create notification.");
   }
 };
 
