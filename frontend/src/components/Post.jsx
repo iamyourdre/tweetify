@@ -45,6 +45,7 @@ const Post = ({ post, showFooter = true }) => {
   };
 
   const handleCommentClick = () => {
+    setRepostPost(post);
     document.getElementById('create_comment_modal').showModal();
   };
 

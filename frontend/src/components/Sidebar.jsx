@@ -6,7 +6,7 @@ import {useAuthContext} from '../contexts/AuthContext';
 import CreatePost from './CreatePost';
 import CreateRepost from './CreateRepost';
 import { CreateComment } from './CreateComment';
-import useListenNotification from '../hooks/useListenNotification';
+import useListenNotification from "../hooks/useListenNotification.jsx";
 
 const Sidebar = () => {
   const {user} = useAuthContext();

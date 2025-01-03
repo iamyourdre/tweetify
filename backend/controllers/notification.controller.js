@@ -1,8 +1,10 @@
 import Notification from "../models/notification.model.js";
+import User from "../models/user.model.js"; // Import User model
 import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const createNotification = async (notifBy, notifTo, type, post) => {
   try {
+
     const newNotification = new Notification({
       notifBy,
       notifTo,
@@ -11,12 +13,10 @@ export const createNotification = async (notifBy, notifTo, type, post) => {
     });
 
     await newNotification.save();
-    console.log("notifTo", notifTo);
+    await newNotification.populate('notifBy', ['fullName', 'profilePic']);
 
-    // Socket.io functionality
     const receiverSocketId = getReceiverSocketId(notifTo);
     if (receiverSocketId) {
-      // Emitting the notification to the receiver
       io.to(receiverSocketId).emit("newNotification", newNotification);
     }
 
@@ -31,7 +31,9 @@ export const getNotifications = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const notifications = await Notification.find({ notifTo: userId }).populate("post");
+    const notifications = await Notification.find({ notifTo: userId })
+      .populate("post")
+      .populate("notifBy", "fullName"); // Populate notifBy to get fullName
 
     res.status(200).json(notifications);
   } catch (error) {

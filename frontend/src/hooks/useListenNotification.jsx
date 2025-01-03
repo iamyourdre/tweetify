@@ -1,0 +1,51 @@
+import { useEffect } from "react";
+import { useSocketContext } from "../contexts/SocketContext";
+import useNotification from "../zustand/useNotification";
+import toast from "react-hot-toast";
+import { FaCircleCheck } from "react-icons/fa6";
+
+const useListenNotification = () => {
+  const { socket } = useSocketContext();
+  const { notifications, setNotifications } = useNotification();
+
+  useEffect(() => {
+    socket?.on("newNotification", (newNotification) => {
+      setNotifications([...notifications, newNotification]);
+      console.log(newNotification);
+      let message = "";
+      switch (newNotification.type) {
+        case "liked":
+          message = `${newNotification.notifBy.fullName} menyukai postingan anda`;
+          break;
+        case "commented":
+          message = `${newNotification.notifBy.fullName} mengomentari postingan anda`;
+          break;
+        case "reposted":
+          message = `${newNotification.notifBy.fullName} membagikan ulang postingan anda`;
+          break;
+        case "followed":
+          message = `${newNotification.notifBy.fullName} mulai mengikuti anda`;
+          break;
+        default:
+          message = "Anda memiliki notifikasi baru!";
+      }
+
+      toast.success(message, {
+        position: "bottom-right",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+        icon: (
+          <img src={newNotification.notifBy.profilePic} alt="avatar" className="w-6 h-6 rounded-full" />
+        ),
+      });
+    });
+
+    return () => {
+      socket?.off("newNotification");
+    };
+  }, [socket, notifications, setNotifications]);
+};
+
+export default useListenNotification;

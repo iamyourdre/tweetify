@@ -6,10 +6,11 @@ import Button from './Button';
 import useCreatePost from '../hooks/useCreatePost';
 import toast from 'react-hot-toast';
 import { NavLink, useParams } from 'react-router-dom';
+import { useRepostContext } from '../contexts/RepostContext';
 
 const CreateComment = () => {
   const { user } = useAuthContext();
-  const { postId } = useParams();
+  const { repostPost, setRepostPost } = useRepostContext();
   const [thread, setThread] = useState({ text: '', images: [] });
   const { createComment } = useCreatePost();
 
@@ -36,7 +37,7 @@ const CreateComment = () => {
     } else {
       document.getElementById('create_comment_modal').close();
       toast.promise(
-        createComment(thread, postId),
+        createComment(thread, repostPost._id),
         {
           loading: 'Posting...',
           success: (data) => (
@@ -50,6 +51,7 @@ const CreateComment = () => {
       );
     }
     setThread({ text: '', images: [] });
+    setRepostPost(null);
   };
 
   return (
