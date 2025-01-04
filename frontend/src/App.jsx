@@ -20,7 +20,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path="/:username" element={<Profile/>} />
           <Route path="/search" element={<Search/>} />
-          <Route path="/notification" element={'notification'} />
+          <Route path="/notification" element={<Notification/>} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/posting" element={'posting'} />
           <Route path="/p/:postId" element={<Post />} />

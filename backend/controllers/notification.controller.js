@@ -5,6 +5,10 @@ import { getReceiverSocketId, io } from "../socket/socket.js";
 export const createNotification = async (notifBy, notifTo, type, post) => {
   try {
 
+    if(notifBy.toString() === notifTo.toString()) {
+      return;
+    }
+
     const newNotification = new Notification({
       notifBy,
       notifTo,
