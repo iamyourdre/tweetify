@@ -1,5 +1,4 @@
 import Notification from "../models/notification.model.js";
-import User from "../models/user.model.js"; // Import User model
 import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const createNotification = async (notifBy, notifTo, type, post) => {
@@ -10,7 +9,7 @@ export const createNotification = async (notifBy, notifTo, type, post) => {
 
     let existingNotification;
 
-    if (type === "liked") {
+    if (type === "liked" || type === "reposted") {
       existingNotification = await Notification.findOne({
         notifBy,
         notifTo,

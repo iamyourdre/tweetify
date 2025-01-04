@@ -26,8 +26,7 @@ export const createPost = async (req, res) => {
         parent.reposts.push(newPost._id);
         await parent.save();
 
-        // Create notification for repost
-        await createNotification(author, parent.author, 'reposted', repostContent);
+        await createNotification(author, parent.author, 'reposted', newPost);
       }
     } else if (type === 'comment') {
       const parent = await Post.findById(parentPost);

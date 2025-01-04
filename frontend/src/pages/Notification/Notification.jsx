@@ -5,17 +5,19 @@ import useMarkAsRead from '../../hooks/useMarkAsRead';
 import RightSide from '../Home/RightSide';
 import { formatDistanceToNow } from 'date-fns';
 import Loading from '../../components/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const Notification = () => {
   const { notifications, loading } = useFetchNotifications();
   const { markAsRead } = useMarkAsRead();
+  const navigate = useNavigate();
 
   console.log(notifications);
 
   const handleMarkAsRead = async (id, url) => {
     try {
       await markAsRead(id);
-      window.location.href = url;
+      navigate(url);
     } catch (error) {
       console.error('Failed to mark notification as read:', error);
     }
@@ -46,6 +48,18 @@ const Notification = () => {
                         <p className='text-sm text-ellipsis overflow-hidden line-clamp-2 flex gap-1.5'>
                           <FaHeart className='inline text-accent my-auto' />
                           <span className='opacity-50'>{notification.post.content}.</span>
+                        </p>
+                      </>
+                    )}
+                    {notification.type === 'reposted' && (
+                      <>
+                        <p className='text-md'>
+                          <span className='font-semibold'>{notification.notifBy.fullName}</span>
+                          &nbsp;reposted your post.
+                        </p>
+                        <p className='text-sm text-ellipsis overflow-hidden line-clamp-2 flex gap-1.5'>
+                          <FaShare className='inline text-accent my-auto' />
+                          <span className='opacity-50'>@{notification.notifBy.username}: "{notification.post.content}"</span>
                         </p>
                       </>
                     )}
