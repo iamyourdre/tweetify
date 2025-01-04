@@ -4,9 +4,36 @@ import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const createNotification = async (notifBy, notifTo, type, post) => {
   try {
-
-    if(notifBy.toString() === notifTo.toString()) {
+    if (notifBy.toString() === notifTo.toString()) {
       return;
+    }
+
+    let existingNotification;
+
+    if (type === "liked") {
+      existingNotification = await Notification.findOne({
+        notifBy,
+        notifTo,
+        type,
+        post,
+      });
+    } else if (type === "followed") {
+      existingNotification = await Notification.findOne({
+        notifBy,
+        notifTo,
+        type,
+      });
+    }
+
+    if (existingNotification) {
+      existingNotification.updatedAt = Date.now();
+      await existingNotification.save();
+      await existingNotification.populate('notifBy', ['fullName', 'profilePic', 'username']);
+      const receiverSocketId = getReceiverSocketId(notifTo);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit("newNotification", existingNotification);
+      }
+      return existingNotification;
     }
 
     const newNotification = new Notification({
@@ -17,7 +44,7 @@ export const createNotification = async (notifBy, notifTo, type, post) => {
     });
 
     await newNotification.save();
-    await newNotification.populate('notifBy', ['fullName', 'profilePic']);
+    await newNotification.populate('notifBy', ['fullName', 'profilePic', 'username']);
 
     const receiverSocketId = getReceiverSocketId(notifTo);
     if (receiverSocketId) {
@@ -36,8 +63,9 @@ export const getNotifications = async (req, res) => {
     const userId = req.user._id;
 
     const notifications = await Notification.find({ notifTo: userId })
-      .populate("post")
-      .populate("notifBy", "fullName"); // Populate notifBy to get fullName
+      .populate("post", ['content'])
+      .populate("notifBy", ['fullName', 'profilePic', 'username'])
+      .sort({ updatedAt: -1 });
 
     res.status(200).json(notifications);
   } catch (error) {

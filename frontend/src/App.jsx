@@ -10,6 +10,7 @@ import SignUp from './pages/Signup/SignUp';
 import Post from './pages/Post/Post';
 import Search from './pages/Search/Search';
 import Profile from './pages/Profile/Profile';
+import Notification from './pages/Notification/Notification';
 
 function App() {
   const {user} = useAuthContext();

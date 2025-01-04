@@ -10,8 +10,20 @@ const useListenNotification = () => {
 
   useEffect(() => {
     socket?.on("newNotification", (newNotification) => {
-      setNotifications([...notifications, newNotification]);
-      console.log(newNotification);
+      const existingNotificationIndex = notifications.findIndex(
+        (notification) => notification._id === newNotification._id
+      );
+
+      if (existingNotificationIndex !== -1) {
+        // Update the existing notification
+        const updatedNotifications = [...notifications];
+        updatedNotifications[existingNotificationIndex] = newNotification;
+        setNotifications(updatedNotifications);
+      } else {
+        // Add the new notification
+        setNotifications([...notifications, newNotification]);
+      }
+
       let message = "";
       switch (newNotification.type) {
         case "liked":

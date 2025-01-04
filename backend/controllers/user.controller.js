@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import Follower from "../models/follower.model.js";
+import { createNotification } from "./notification.controller.js";
 
 export const getUsersBySearch = async (req, res) => {
   try {
@@ -64,7 +65,6 @@ export const followUser = async (req, res) => {
     const userId = req.user._id;
     const { targetUserId } = req.params;
 
-    // Check if the follow relationship already exists
     const existingFollow = await Follower.findOne({ userId, followerId: targetUserId });
     if (existingFollow) {
       return res.status(400).json({ error: "You are already following this user." });
