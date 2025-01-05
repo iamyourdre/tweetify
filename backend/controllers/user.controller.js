@@ -29,7 +29,7 @@ export const getUsersBySearch = async (req, res) => {
 export const getFollowing = async (req, res) => {
   try {
     const { userId } = req.params;
-    const following = await Follower.find({ userId }).populate('followerId', 'username fullName profilePic');
+    const following = await Follower.find({ followerId: userId }).populate('userId', 'username fullName profilePic');
     res.status(200).json(following);
   } catch (error) {
     console.log(error.message);
@@ -40,7 +40,7 @@ export const getFollowing = async (req, res) => {
 export const getFollowers = async (req, res) => {
   try {
     const { userId } = req.params;
-    const followers = await Follower.find({ followerId: userId }).populate('userId', 'username fullName profilePic');
+    const followers = await Follower.find({ userId }).populate('followerId', 'username fullName profilePic');
     res.status(200).json(followers);
   } catch (error) {
     console.log(error.message);
@@ -52,7 +52,7 @@ export const isFollowing = async (req, res) => {
   try {
     const userId = req.user._id;
     const { targetUserId } = req.params;
-    const isFollowing = await Follower.findOne({ userId, followerId: targetUserId });
+    const isFollowing = await Follower.findOne({ userId: targetUserId, followerId: userId });
     res.status(200).json({ isFollowing: !!isFollowing });
   } catch (error) {
     console.log(error.message);
