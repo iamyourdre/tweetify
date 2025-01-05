@@ -55,11 +55,16 @@ const Post = ({ post, showFooter = true }) => {
   };
 
   return (
-    <>
+    <div className='relative'>
       {post.type === 'comment' && (
         <Link className="inline-block px-4 py-4 text-sm" to={`/p/${post.parentPost}`}>
           <span className='text-gray-400 hover:underline'>Replied: </span>
         </Link>
+      )}
+      {post.author._id === user._id && (
+        <div className="absolute top-0 right-0 px-4 py-5">
+          <ManagePost id={post._id} />
+        </div>
       )}
       <div className={`${post.type !== 'comment' ? 'pt-6' : ''} flex w-full flex-col pb-2 gap-3 px-4 transition duration-200 ease-in-out hover:bg-base-200`} onClick={() => navigate(`/p/${post._id}`)}>
         <div className='flex text-md' id={post._id} onClick={handlePostClick}>
@@ -84,13 +89,8 @@ const Post = ({ post, showFooter = true }) => {
         <button onClick={handleLikeClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
           {liked ? <FaHeart className='text-xl inline text-red-500' /> : <FaRegHeart className='text-xl inline' />} {likesCount}
         </button>
-        {post.author._id === user._id && (
-          <div className="flex-1 text-gray-500 hover:text-accent text-right">
-            <ManagePost id={post._id} />
-          </div>
-        )}
       </div>
-    </>
+    </div>
   );
 };
 

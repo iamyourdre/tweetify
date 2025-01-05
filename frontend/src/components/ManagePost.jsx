@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaTrash } from 'react-icons/fa6';
+import { FaEllipsisVertical, FaTrash } from "react-icons/fa6";
 import useCreatePost from '../hooks/useCreatePost';
 import toast from 'react-hot-toast';
 
@@ -17,9 +17,14 @@ const ManagePost = ({id}) => {
   };
   return (
     <>
-      <button onClick={handleDeleteClick} className="gap-1 text-gray-500 hover:text-accent">
-        <FaTrash className='text-xl inline' />
-      </button>
+      <div className="dropdown dropdown-end">
+        <FaEllipsisVertical tabIndex={0} role="button"></FaEllipsisVertical>
+        <ul tabIndex={0} className="dropdown-content menu bg-gray-700 rounded-xl z-[1] w-52 shadow p-0 mt-2">
+          <li onClick={handleDeleteClick} className='text-red-500'>
+            <a className='px-3 py-4 rounded-xl'><FaTrash/> Delete Post</a>
+          </li>
+        </ul>
+      </div>
     </>
   )
 }
