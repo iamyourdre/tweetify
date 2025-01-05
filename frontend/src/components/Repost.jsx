@@ -48,7 +48,12 @@ const Repost = ({ post, length }) => {
   };
 
   return (
-    <>
+    <div className='relative'>
+      {post.author._id === user._id && (
+        <div className="absolute top-0 right-0 px-4 py-5">
+          <ManagePost id={post._id} />
+        </div>
+      )}
       <div className="flex w-full flex-col gap-3">
         <Link className='flex flex-col gap-3 pt-6 px-4 transition duration-200 ease-in-out hover:bg-base-200' to={`/p/${post._id}`}>
           <div className='flex text-md' id={post._id} onClick={handlePostClick}>
@@ -86,13 +91,8 @@ const Repost = ({ post, length }) => {
         <button onClick={handleLikeClick} className="flex gap-1 text-gray-500 hover:text-accent justify-start items-center">
           {liked ? <FaHeart className='text-xl inline text-red-500' /> : <FaRegHeart className='text-xl inline' />} {likesCount}
         </button>
-        {post.author._id === user._id && (
-          <div className="flex-1 text-gray-500 hover:text-accent text-right">
-            <ManagePost id={post._id} />
-          </div>
-        )}
       </div>
-    </>
+    </div>
   );
 };
 

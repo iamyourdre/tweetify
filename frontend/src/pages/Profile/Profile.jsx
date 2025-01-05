@@ -87,8 +87,8 @@ const ProfileHeader = ({ user, isFollowing, followUser, unfollowUser, following,
             addClass={isFollowing ? "btn-outline" : ''} 
             onClick={isFollowing ? unfollowUser : followUser} 
           />
-        ) : (
-          <Button text="Edit Profile" addClass="btn-outline" />
+        ) : (''
+          // <Button text="Edit Profile" addClass="btn-outline" />
         )}
       </div>
     </div>

@@ -9,10 +9,13 @@ const RightSide = () => {
         <div className="sticky top-5">
         <SearchBar />
         </div>
-        <div className='bg-gray-700/30 rounded-xl p-5'>
-          <p className='text-xl font-bold mb-2'>Changelog</p>
-          <p className='text-gray-200 leading-tight mb-3'>If i was Elon Musk, i'll put some ads here, sell a premium subscribtion, and im gonna be richest dumb a** capitalist on earth.</p>
-          <Button text="I Agree"/>
+        <div className='bg-gray-700/30 rounded-xl p-5 flex flex-col gap-3'>
+          <p className='text-2xl font-bold mb-2'>Welcome to Tweetify</p>
+          <p className='text-gray-200 leading-tight mb-3'>
+            Tweetify is a social media platform where you can share your thoughts and ideas with the world. 
+            You can also follow other users and see what they are up to.
+          </p>
+          <Button text="Let's Share An Idea" onClick={()=>document.getElementById('create_post_modal').showModal()}/>
         </div>
       </div>
     </div>
