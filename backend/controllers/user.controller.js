@@ -65,12 +65,12 @@ export const followUser = async (req, res) => {
     const userId = req.user._id;
     const { targetUserId } = req.params;
 
-    const existingFollow = await Follower.findOne({ userId, followerId: targetUserId });
+    const existingFollow = await Follower.findOne({ userId: targetUserId, followerId: userId });
     if (existingFollow) {
       return res.status(400).json({ error: "You are already following this user." });
     }
 
-    const newFollow = new Follower({ userId, followerId: targetUserId });
+    const newFollow = new Follower({ userId: targetUserId, followerId: userId });
     await newFollow.save();
 
     await createNotification(userId, targetUserId, 'followed', userId);
@@ -86,7 +86,7 @@ export const unfollowUser = async (req, res) => {
   try {
     const userId = req.user._id;
     const { targetUserId } = req.params;
-    await Follower.findOneAndDelete({ userId, followerId: targetUserId });
+    await Follower.findOneAndDelete({ userId: targetUserId, followerId: userId });
     res.status(200).json({ message: "Unfollowed successfully." });
   } catch (error) {
     console.log(error.message);

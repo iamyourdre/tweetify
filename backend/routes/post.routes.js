@@ -1,8 +1,7 @@
 import express from 'express';
-import { createPost, getPosts, getPostById, deletePost, getPostsByUserId } from '../controllers/post.controller.js';
+import { createPost, getPosts, getPostById, deletePost, getPostsByUserId, getFollowingPosts } from '../controllers/post.controller.js';
 import protectRoute from '../middlewares/protectRoute.js';
 import multer from 'multer';
-import path from 'path';
 import { likePost, unlikePost } from '../controllers/like.controller.js';
 
 const router = express.Router();
@@ -20,11 +19,13 @@ const upload = multer({ storage });
 
 router.post('/', protectRoute, upload.array('media', 4), createPost);
 router.get('/', getPosts);
+router.get('/following', protectRoute, getFollowingPosts);
 router.get('/:id', getPostById);
 router.delete('/:id', protectRoute, deletePost);
 
 // Route for getting posts by userId
 router.get('/user/:userId', protectRoute, getPostsByUserId);
+
 
 // Routes for liking and unliking posts
 router.post('/:id/like', protectRoute, likePost);

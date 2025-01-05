@@ -1,3 +1,4 @@
+import Follower from "../models/follower.model.js";
 import Post from "../models/post.model.js";
 import { createNotification } from "./notification.controller.js";
 
@@ -48,8 +49,6 @@ export const createPost = async (req, res) => {
   }
 };
 
-// Existing code...
-
 export const getPosts = async (req, res) => {
   try {
     const posts = await Post.find({ type: { $in: ['post', 'repost'] } })
@@ -66,6 +65,32 @@ export const getPosts = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "Failed to get posts." });
+  }
+};
+
+export const getFollowingPosts = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const following = await Follower.find({ followerId: userId }).populate('userId', 'username');
+    
+    const followingIds = following.map(follow => follow.userId._id);
+
+    // Dapatkan postingan dari pengguna yang diikuti
+    const posts = await Post.find({ author: { $in: followingIds } })
+      .populate({ path: "author", select: "-password" })
+      .populate("comments")
+      .populate({
+        path: "repostContent",
+        select: ["-parentPost", "-repostContent", "-reposts", "-likes"],
+        populate: { path: "author", select: ["username", "profilePic", "fullName"] }
+      })
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: "Failed to get posts from following users." });
   }
 };
 

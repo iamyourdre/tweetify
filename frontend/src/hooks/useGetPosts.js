@@ -5,7 +5,7 @@ import usePost from "../zustand/usePost";
 
 const useGetPosts = () => {
   const [loading, setLoading] = useState(false);
-  const { setFyp } = usePost();
+  const { setFyp, setFollowingPosts } = usePost();
   const { setUserPosts } = usePost();
 
   const getFyp = async () => {
@@ -25,6 +25,21 @@ const useGetPosts = () => {
     }
   };
   
+  const getFollowingPosts = async () => {
+    setLoading(true);
+    try {
+      const res = await useAxios.get('/posts/following');
+      if (res.data.error) {
+        throw new Error(res.data.error);
+      }
+      setFollowingPosts(res.data);
+    } catch (error) {
+      toast.error(error.response?.data?.error || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getPostsByUserId = async (userId) => {
     setLoading(true);
     try {
@@ -40,7 +55,7 @@ const useGetPosts = () => {
     }
   };
 
-  return { loading, getFyp, getPostsByUserId };
+  return { loading, getFyp, getPostsByUserId, getFollowingPosts };
 }
 
 export default useGetPosts;
