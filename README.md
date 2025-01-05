@@ -1,7 +1,7 @@
 # I Just Built a Twitter Wannabe App, and Here's What I Learned
 
 ## Introduction
-Recently, I embarked on a journey to build a Twitter-like application. This project was both challenging and rewarding, providing me with valuable insights into full-stack development. Here's a breakdown of the features I implemented and the tech stack I used.
+Recently, I embarked on a journey to build a Twitter-like application with MERN Stack. This project was both challenging and rewarding, providing me with valuable insights into Full-Stack JavaScript development. Here's a breakdown of the features I implemented and the tech stack I used.
 
 ## Features
 
