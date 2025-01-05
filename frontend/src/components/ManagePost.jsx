@@ -2,15 +2,17 @@ import React from 'react'
 import { FaEllipsisVertical, FaTrash } from "react-icons/fa6";
 import useCreatePost from '../hooks/useCreatePost';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const ManagePost = ({id}) => {
+  const navigate = useNavigate();
   const { deletePost } = useCreatePost();
   const handleDeleteClick = async () => {
     toast.promise(
       deletePost(id),
       {
         loading: 'Deleting post...',
-        success: window.location.href = '/',
+        success: navigate('/'),
         error: 'Something went wrong. Please try again.',
       }
     );

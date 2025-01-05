@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { FaComment, FaHeart, FaRegHeart, FaShare } from "react-icons/fa6";
 import { useRepostContext } from '../contexts/RepostContext';
@@ -15,6 +15,7 @@ const Repost = ({ post, length }) => {
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes.length);
   const [repostsCount, setRepostsCount] = useState(post.reposts.length);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user && post.likes.includes(user._id)) {
@@ -46,6 +47,11 @@ const Repost = ({ post, length }) => {
   const handleCommentClick = () => {
     document.getElementById('create_comment_modal').showModal();
   };
+  
+  const handleAuthorClick = (e) => {
+    e.stopPropagation();
+    navigate('/' + post.author.username);
+  };
 
   return (
     <div className='relative'>
@@ -54,11 +60,11 @@ const Repost = ({ post, length }) => {
           <ManagePost id={post._id} />
         </div>
       )}
-      <div className="flex w-full flex-col gap-3">
-        <Link className='flex flex-col gap-3 pt-6 px-4 transition duration-200 ease-in-out hover:bg-base-200' to={`/p/${post._id}`}>
+      <div className="flex w-full flex-col gap-3" >
+        <div className='flex flex-col gap-3 pt-6 px-4 transition duration-200 ease-in-out hover:bg-base-200' onClick={() => navigate(`/p/${post._id}`)}>
           <div className='flex text-md' id={post._id} onClick={handlePostClick}>
-            <img className='w-10 h-10' src={post.author.profilePic} />
-            <div className="leading-tight pl-3 w-full">
+            <img className='w-10 h-10 cursor-pointer' src={post.author.profilePic} onClick={handleAuthorClick}/>
+            <div className="leading-tight pl-3 w-full cursor-pointer" onClick={handleAuthorClick}>
               <div className="flex">
                 <p className='font-bold'>{post.author.fullName}</p>
               </div>
@@ -67,13 +73,8 @@ const Repost = ({ post, length }) => {
           </div>
           <p className=''>{post.content}</p>
           <ImageGrid media={post.media} />
-        </Link>
+        </div>
         <div className="px-4">
-          {/* <RepostedPost post={post.repostContent} /> */}
-          {/* {post.repostContent ? 
-            <RepostedPost post={post.repostContent} /> :
-            <p className='border p-3 border-gray-600 text-gray-500 rounded-lg'>Post has been deleted</p>
-          } */}
           {post.type === 'repost' ? 
             post.repostContent ? <RepostedPost post={post.repostContent} /> :
             <p className='border p-3 border-gray-600 text-gray-500 rounded-lg'>Post has been deleted</p> :
