@@ -1,11 +1,13 @@
 # Tweetify - A Twitter Wannabe App
 
 <p align="center">
-  <img src="https://github.com/iamyourdre/tweetify/blob/main/1.png?raw=true" width="200">
-  <img src="https://github.com/iamyourdre/tweetify/blob/main/2.png?raw=true" width="200">
-  <img src="https://github.com/iamyourdre/tweetify/blob/main/3.png?raw=true" width="200">
-  <img src="https://github.com/iamyourdre/tweetify/blob/main/4.png?raw=true" width="200">
-  <img src="https://github.com/iamyourdre/tweetify/blob/main/5.png?raw=true" width="200">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/1.png?raw=true" width="300">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/2.png?raw=true" width="300">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/3.png?raw=true" width="300">
+</p>
+<p align="center">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/4.png?raw=true" width="300">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/5.png?raw=true" width="300">
 </p>
 
 ## Introduction
