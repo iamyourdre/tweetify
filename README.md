@@ -1,4 +1,12 @@
-# I Just Built a Twitter Wannabe App, and Here's What I Learned
+# Tweetify - A Twitter Wannabe App
+
+<p align="center">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/1.png?raw=true" width="200">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/2.png?raw=true" width="200">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/3.png?raw=true" width="200">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/4.png?raw=true" width="200">
+  <img src="https://github.com/iamyourdre/tweetify/blob/main/5.png?raw=true" width="200">
+</p>
 
 ## Introduction
 Recently, I embarked on a journey to build a Twitter-like application with MERN Stack. This project was both challenging and rewarding, providing me with valuable insights into Full-Stack JavaScript development. Here's a breakdown of the features I implemented and the tech stack I used.
