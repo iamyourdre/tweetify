@@ -1,4 +1,4 @@
-# Tweetify - A Twitter Wannabe App
+# Tweetify - A Twitter-Like App
 
 <p align="center">
   <img src="https://github.com/iamyourdre/tweetify/blob/main/1.png?raw=true" width="300">
